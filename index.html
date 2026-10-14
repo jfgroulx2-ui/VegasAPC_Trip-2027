@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vegas golf — 8 au 12 juin 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --sand:#F4E7CF; --sand-2:#EAD9B8; --ink:#2A2338; --ink-2:#5B5468;
+  --dawn:#E6702E; --mauve:#6E4F7A; --fairway:#3B7A4A; --fairway-2:#DCEBDD;
+  --neon:#E3399B; --eco:#2F8F6B; --mid:#D98A1F; --prem:#8A3B9C;
+  --card:#FBF4E6; --line:#D9C8A6; --road:#C9B48C; --water:#9FC6D8;
+  --font-d:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --font-b:"Barlow","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --sand:#1C1A26; --sand-2:#262233; --ink:#F1E8D6; --ink-2:#B9AFC4;
+  --card:#27232F; --line:#443C54; --road:#55496A; --fairway-2:#2E4433; --water:#2F5566;
+}}
+:root[data-theme="dark"]{
+  --sand:#1C1A26; --sand-2:#262233; --ink:#F1E8D6; --ink-2:#B9AFC4;
+  --card:#27232F; --line:#443C54; --road:#55496A; --fairway-2:#2E4433; --water:#2F5566;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sand);color:var(--ink);font-family:var(--font-b);font-size:16px;line-height:1.45}
+h1,h2,h3{font-family:var(--font-d);line-height:1.05;margin:0}
+h1{font-size:clamp(44px,11vw,88px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(30px,7vw,46px);font-weight:600}
+h3{font-size:22px;font-weight:600}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+
+
+/* couverture */
+.cover{position:fixed;inset:0;z-index:50;overflow:hidden;color:#F4E7CF;background:#07061A;touch-action:pan-y;transition:transform .45s cubic-bezier(.3,0,.2,1),opacity .45s;will-change:transform}
+.cover.drag{transition:none}
+.cover.gone{transform:translateX(105%);opacity:.6;pointer-events:none}
+.cover.hidden{display:none}
+.cv-bg{position:absolute;inset:0;width:100%;height:100%}
+.cv-txt{position:relative;padding:0 22px calc(36px + env(safe-area-inset-bottom,0px));max-width:1040px;margin:0 auto;width:100%}
+.cv-kick{font-family:var(--font-d);font-size:clamp(17px,4.2vw,24px);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#F3B35A;margin:0 0 6px}
+.cv-h{font-family:var(--font-d);font-weight:700;line-height:.9;letter-spacing:-.01em;font-size:clamp(50px,13vw,140px);margin:0;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.cv-h .cv-plus{display:inline-block;color:#E3399B;margin:0 .08em;transform:translateY(-.04em)}
+.cv-at{font-family:var(--font-d);font-weight:700;font-size:clamp(30px,8.5vw,92px);line-height:.95;margin:6px 0 16px;color:#E3399B;letter-spacing:.04em;text-shadow:0 0 18px rgba(227,57,155,.55),0 0 40px rgba(227,57,155,.35);animation:glow 2.4s ease-in-out infinite alternate}
+.cv-facts{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--font-d);font-size:clamp(17px,4.4vw,24px);font-weight:500}
+.cv-facts b{font-weight:700;font-size:1.25em;color:#F3B35A;margin-right:4px}
+.cv-swipe{display:flex;align-items:center;gap:14px;background:transparent;border:0;padding:0;color:#F4E7CF;cursor:pointer;font-family:var(--font-d);font-size:19px;font-weight:600;text-align:left}
+.cv-track{position:relative;display:block;width:150px;height:46px;border-radius:999px;background:rgba(244,231,207,.14);border:2px solid rgba(244,231,207,.55);flex:none;overflow:hidden}
+.cv-knob{position:absolute;left:3px;top:3px;width:36px;height:36px;border-radius:50%;background:#F4E7CF;color:#07061A;display:grid;place-items:center;font-size:22px;font-weight:700;animation:nudge 1.8s ease-in-out infinite}
+.cv-swipe:focus-visible .cv-track{outline:3px solid #E3399B;outline-offset:3px}
+.neon{animation:flicker 3s infinite}.neon.n2{animation-duration:4.1s;animation-delay:.7s}.neon.n3{animation-duration:5.3s;animation-delay:1.4s}
+.stars circle{animation:twinkle 3.5s ease-in-out infinite}.stars circle:nth-child(odd){animation-delay:1.2s}.stars circle:nth-child(3n){animation-delay:2.1s}
+.flag{transform-origin:640px 824px;animation:wave 1.6s ease-in-out infinite alternate}
+@keyframes glow{from{text-shadow:0 0 12px rgba(227,57,155,.45),0 0 30px rgba(227,57,155,.25)}to{text-shadow:0 0 22px rgba(227,57,155,.8),0 0 60px rgba(227,57,155,.5)}}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(100px)}}
+@keyframes flicker{0%,18%,22%,60%,100%{opacity:1}20%{opacity:.35}61%{opacity:.6}}
+@keyframes twinkle{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes wave{from{transform:skewY(-4deg)}to{transform:skewY(4deg)}}
+@media (prefers-reduced-motion:reduce){.cv-at,.cv-knob,.neon,.stars circle,.flag{animation:none}.ball{display:none}}
+@media (max-width:420px){.cv-h{font-size:16vw}.cv-at{font-size:9.5vw}}
+.pane{position:absolute;inset:0;display:grid;align-items:end;overflow:auto;transition:transform .45s cubic-bezier(.3,0,.2,1),opacity .45s;will-change:transform;background:#07061A}
+.pane[hidden]{display:none}
+.pane.out{transform:translateX(105%);opacity:.5;pointer-events:none}
+.pane.p1{z-index:2}
+.pane.p2{z-index:1;background:#0E0B1F;background-image:radial-gradient(circle at 85% 10%,rgba(227,57,155,.35),transparent 45%),radial-gradient(circle at 10% 90%,rgba(62,138,80,.45),transparent 50%);align-items:start}
+.pane.p2.in{animation:slidein .45s cubic-bezier(.3,0,.2,1)}
+@keyframes slidein{from{opacity:0}to{opacity:1}}
+.bz{position:relative;padding:calc(28px + env(safe-area-inset-top,0px)) 22px calc(36px + env(safe-area-inset-bottom,0px));max-width:1040px;margin:0 auto;width:100%;color:#F4E7CF;display:grid;align-content:space-between;min-height:100%}
+.bz-list{list-style:none;margin:0;padding:0;display:grid;gap:clamp(6px,1.6vh,16px)}
+.bz-list li{font-family:var(--font-d);font-weight:700;line-height:.92;font-size:clamp(40px,11vw,104px);letter-spacing:-.01em;opacity:0;transform:translateX(-24px);animation:bzin .5s cubic-bezier(.2,.7,.2,1) forwards}
+.bz-list li span{display:block;font-size:.42em;font-weight:600;letter-spacing:.16em;color:rgba(244,231,207,.75)}
+.bz-list .b1{animation-delay:.05s;color:#F3B35A}.bz-list .b2{animation-delay:.2s;color:#E6702E}.bz-list .b3{animation-delay:.35s;color:#4FA061}.bz-list .b4{animation-delay:.5s;color:#7FD6FF}.bz-list .b5{animation-delay:.65s;color:#E3399B;text-shadow:0 0 18px rgba(227,57,155,.55)}.bz-list .b6{animation-delay:.8s;color:#F4E7CF}
+.bz .cv-swipe{margin-top:22px}
+@keyframes bzin{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.bz-list li{animation:none;opacity:1;transform:none}}
+@media (max-height:700px){.bz-list li{font-size:clamp(32px,8.5vw,70px)}}
+/* hero */
+.hero{padding:34px 0 18px;border-bottom:3px solid var(--ink)}
+.hero .sub{font-size:19px;color:var(--ink-2);margin-top:6px;max-width:34em}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+.dayc{display:grid;grid-template-rows:auto 1fr 1fr;gap:6px}
+.dh{display:flex;align-items:baseline;gap:8px;border-bottom:3px solid var(--ink);padding-bottom:4px}
+.dh .d{font-family:var(--font-d);font-size:34px;font-weight:700;line-height:1}
+.dh .n{font-family:var(--font-d);font-size:17px;font-weight:600;color:var(--ink-2);text-transform:capitalize}
+.slot{position:relative;display:grid;gap:2px;padding:10px 10px 10px 12px;border:2px solid var(--line);background:var(--card);border-left-width:8px;min-height:96px}
+.slot .half{font-family:var(--font-d);font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--ink-2)}
+.slot .st{font-family:var(--font-d);font-size:21px;font-weight:700;line-height:1.05}
+.slot .ss{font-size:13px;color:var(--ink-2);line-height:1.25}
+.slot .kl{position:absolute;top:8px;right:8px;font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;color:#fff;background:var(--ink-2)}
+.slot.golf{border-left-color:var(--fairway);background:var(--fairway-2)}.slot.golf .kl{background:var(--fairway)}
+.slot.show{border-left-color:var(--neon)}.slot.show .kl{background:var(--neon)}.slot.show .st{color:var(--neon)}
+.slot.top{border-left-color:var(--dawn)}.slot.top .kl{background:var(--dawn)}
+.slot.travel{border-left-color:var(--mauve)}.slot.travel .kl{background:var(--mauve)}
+.slot.free{border-left-color:var(--line);border-style:dashed}.slot.free .kl{background:var(--line);color:var(--ink)}
+.slot.none{border-style:dashed;opacity:.5;min-height:40px}
+@media (max-width:640px){
+  .days{grid-template-columns:1fr;gap:14px}
+  .dayc{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:8px}
+  .dh{grid-column:1/-1}
+  .slot{min-height:110px}
+}
+.sel-hotel{margin-top:14px;border:3px solid var(--ink);background:var(--card);padding:12px 14px;display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:start}
+.sel-hotel .sk{grid-column:1/-1;font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.sel-hotel .sn{font-family:var(--font-d);font-size:30px;font-weight:700;line-height:1}
+.sel-hotel .sp{grid-column:2;grid-row:2/4;text-align:right;font-family:var(--font-d);font-size:26px;font-weight:700;line-height:1}
+.sel-hotel .sp span{display:block;font-family:var(--font-b);font-size:12px;font-weight:400;color:var(--ink-2);margin-top:2px;max-width:200px}
+.sel-hotel .sd{font-size:14px;color:var(--ink-2)}
+.sel-hotel a{grid-column:1/-1;font-family:var(--font-d);font-size:16px;font-weight:600;color:var(--dawn)}
+.incl{margin-top:12px;border:2px solid var(--line);background:var(--card);padding:10px 14px 12px}
+.incl .ik{font-family:var(--font-d);font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+.incl ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:4px 18px}
+@media (min-width:640px){.incl ul{grid-template-columns:1fr 1fr}}
+.incl li{display:flex;justify-content:space-between;gap:10px;font-size:15px;border-bottom:1px dashed var(--line);padding:4px 0}
+.incl li b{font-family:var(--font-d);font-size:18px;font-weight:600;white-space:nowrap}
+.incl li.tot{border-bottom:0;font-family:var(--font-d);font-size:19px;font-weight:700;grid-column:1/-1;border-top:2px solid var(--ink);padding-top:8px;margin-top:4px}
+/* feuille de remplacement */
+.slot{cursor:pointer;text-align:left;font-family:var(--font-b);color:var(--ink);width:100%}
+button.slot:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
+button.slot:hover{border-color:var(--ink)}
+.slot.free .ss{color:var(--dawn)}
+body.sheet-open{overflow:hidden}
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(14,11,31,.55);display:grid;align-items:end}
+.sheet[hidden]{display:none}
+.sheet-box{background:var(--sand);color:var(--ink);border-top:4px solid var(--dawn);max-height:82vh;overflow:auto;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));max-width:720px;width:100%;margin:0 auto;border-radius:14px 14px 0 0}
+.sheet-hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sheet-hd h3{font-size:24px}
+#sheet-close{font:700 20px var(--font-d);background:transparent;border:2px solid var(--ink);color:var(--ink);border-radius:50%;width:38px;height:38px;cursor:pointer}
+.sheet-note{font-size:13px;color:var(--ink-2);margin:4px 0 10px}
+.sheet-list{display:grid;gap:8px}
+.sopt{display:grid;grid-template-columns:1fr auto;gap:2px 12px;text-align:left;background:var(--card);border:2px solid var(--line);padding:10px 12px;cursor:pointer;color:var(--ink);font-family:var(--font-b);border-radius:8px}
+.sopt .so-t{font-family:var(--font-d);font-size:20px;font-weight:700;line-height:1.05}
+.sopt .so-s{grid-column:1;font-size:13px;color:var(--ink-2)}
+.sopt .so-d{grid-column:2;grid-row:1/3;align-self:center;text-align:right;font-family:var(--font-d);font-size:20px;font-weight:700;white-space:nowrap}
+.sopt .so-d small{display:block;font-family:var(--font-b);font-size:11px;font-weight:400;color:var(--ink-2)}
+.sopt.up .so-d{color:#B4432C}.sopt.down .so-d{color:var(--fairway)}.sopt.same .so-d{color:var(--ink-2)}
+.sopt.cur{border-color:var(--ink);background:var(--sand-2)}.sopt.cur .so-d{color:var(--ink-2);font-size:15px}
+.sopt:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
+.sheet-fixed{font-size:15px;color:var(--ink-2);padding:6px 0 10px}
+/* sections */
+section{padding:34px 0 10px}
+.lead{font-size:17px;color:var(--ink-2);margin:8px 0 18px;max-width:40em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.chip{font-family:var(--font-d);font-size:18px;font-weight:600;padding:7px 14px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:999px;line-height:1}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--sand)}
+.chip.k[aria-pressed="true"]{background:var(--dawn);border-color:var(--dawn);color:#fff}
+.chip:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--ink-2);margin-bottom:14px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend .e::before{background:var(--eco)}.legend .m::before{background:var(--mid)}.legend .p::before{background:var(--prem)}
+.legend .b::before{background:var(--dawn);border-radius:2px}.legend .f::before{background:var(--neon);border-radius:0;transform:rotate(45deg)}
+
+/* map + list layout */
+.split{display:grid;grid-template-columns:1fr;gap:18px}
+@media (min-width:860px){.split{grid-template-columns:400px 1fr;align-items:start}.mapbox{position:sticky;top:12px}}
+.mapbox{background:var(--card);border:2px solid var(--ink);padding:8px;overflow:hidden}
+.mapbox svg{width:100%;height:auto;display:block}
+.pin{cursor:pointer}
+.pin circle, .pin rect, .pin polygon{transition:transform .15s}
+.pin.dim{opacity:.25}
+.pin.hot circle{stroke-width:4}
+.mlabel{font-family:var(--font-d);font-size:13px;font-weight:600;fill:var(--ink)}
+.mlabel.s{font-size:11px;font-weight:500;fill:var(--ink-2)}
+.mtitle{font-family:var(--font-d);font-size:15px;font-weight:700;fill:var(--ink-2);letter-spacing:.04em}
+
+/* cards */
+.cards{display:grid;gap:12px}
+.card{background:var(--card);border:2px solid var(--line);border-left:8px solid var(--line);padding:12px 14px 12px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;transition:border-color .15s}
+.card.e{border-left-color:var(--eco)}.card.m{border-left-color:var(--mid)}.card.p{border-left-color:var(--prem)}
+.card.hot{border-color:var(--ink)}
+.card.hide{display:none}
+.card h3{grid-column:1}
+.card .price{grid-column:2;grid-row:1;font-family:var(--font-d);font-size:26px;font-weight:700;text-align:right;line-height:1;white-space:nowrap}
+.card .price small{display:block;font-size:12px;font-weight:500;color:var(--ink-2);font-family:var(--font-b)}
+.card .desc{grid-column:1/-1;font-size:15px;color:var(--ink-2)}
+.facts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:6px;font-size:14px}
+.facts b{font-weight:600}
+.tag{display:inline-block;font-family:var(--font-d);font-size:14px;font-weight:600;padding:2px 8px;border-radius:4px;line-height:1.3;vertical-align:1px}
+.tag.yes{background:var(--dawn);color:#fff}
+.tag.no{background:var(--sand-2);color:var(--ink-2)}
+.tag.inc{background:var(--mauve);color:#fff}
+.tag.opt{background:var(--fairway);color:#fff}
+.tag.pick{background:var(--neon);color:#fff}
+.walk{display:inline-flex;align-items:center;gap:5px}
+.walk i{display:inline-block;height:6px;background:var(--neon);border-radius:3px;vertical-align:middle}
+
+/* golf distance ruler */
+.ruler{background:var(--card);border:2px solid var(--ink);padding:14px 12px 10px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ruler svg{width:100%;min-width:640px;height:auto;display:block}
+.rl{font-family:var(--font-d);font-size:13px;font-weight:600;fill:var(--ink)}
+.rl.s{font-size:11px;font-weight:500;fill:var(--ink-2)}
+
+/* breweries */
+.brew{display:grid;gap:10px}
+.brow{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 12px;background:var(--card);border:2px solid var(--line);border-left:8px solid var(--dawn)}
+.brow h3{font-size:20px}
+.brow .dist{grid-column:2;grid-row:1/3;text-align:right;font-family:var(--font-d);font-size:15px;font-weight:600;line-height:1.25;white-space:nowrap}
+.brow .dist span{display:block;color:var(--ink-2);font-weight:500}
+.brow p{grid-column:1;font-size:14px;color:var(--ink-2)}
+
+.ctl{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.sel{font-family:var(--font-d);font-size:17px;font-weight:600;padding:6px 12px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:6px;line-height:1}
+.sel[aria-pressed="true"]{background:var(--fairway);border-color:var(--fairway);color:#fff}
+.sel.cad[aria-pressed="true"]{background:var(--mauve);border-color:var(--mauve)}
+.sel:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
+.fee{font-size:13px;color:var(--ink-2)}
+.inp{font-size:13px;color:var(--ink-2);display:inline-flex;align-items:center;gap:5px}
+.inp input{font:600 16px var(--font-d);width:74px;padding:4px 6px;border:2px solid var(--line);background:var(--sand);color:var(--ink);border-radius:6px}
+.inp input:focus-visible{outline:3px solid var(--dawn);outline-offset:1px}
+.card.chosen{border-color:var(--fairway);box-shadow:inset 0 0 0 1px var(--fairway)}
+body{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+.cost{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--ink);color:var(--sand);border-top:4px solid var(--dawn);padding:0 0 env(safe-area-inset-bottom,0px)}
+.cost .bar{max-width:1040px;margin:0 auto;padding:10px 18px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 14px;cursor:pointer}
+.cost .tot{font-family:var(--font-d);font-size:40px;font-weight:700;line-height:1}
+.cost .tot small{font-size:16px;font-weight:500;margin-left:6px}
+.cost .tot .cadline{display:block;margin:2px 0 0;font-size:15px;opacity:.85}
+.cost tr.cad td{font-size:15px;opacity:.9}
+.cost .lab{font-size:13px;opacity:.8}
+.cost .grp{grid-column:2;grid-row:1/3;text-align:right;font-family:var(--font-d);font-size:17px;line-height:1.15}
+.cost .grp span{display:block;font-size:13px;opacity:.75;font-family:var(--font-b)}
+.cost .open{display:none;border-top:1px solid rgba(255,255,255,.18);max-height:60vh;overflow:auto}
+.cost.on .open{display:block}
+.cost .inner{max-width:1040px;margin:0 auto;padding:12px 18px 14px;display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:760px){.cost .inner{grid-template-columns:1.1fr 1fr}}
+.cost table{width:100%;border-collapse:collapse;font-size:15px}
+.cost td{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.12);vertical-align:top}
+.cost td:nth-child(2),.cost td:nth-child(3){text-align:right;font-family:var(--font-d);font-size:19px;font-weight:600;white-space:nowrap;padding-left:10px}
+.cost td:nth-child(3){opacity:.8}
+.cost tr.hd td{font-family:var(--font-d);font-size:13px;font-weight:600;opacity:.7;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+.cost tr.par td{font-family:var(--font-d);font-size:17px;font-weight:600}
+.cost tr.par td:first-child span{font-family:var(--font-b);font-weight:400}
+.cost tr.kid td{font-size:14px;padding:2px 0 2px 14px;border-bottom:0;opacity:.85}
+.cost tr.kid td:nth-child(2),.cost tr.kid td:nth-child(3){font-size:15px;font-weight:500;padding-left:10px}
+.cost tr.kid+tr:not(.kid) td{border-top:1px solid rgba(255,255,255,.12)}
+.cost td span{display:block;font-size:12px;opacity:.7}
+.cost tr.sum td{border-bottom:0;padding-top:8px;font-family:var(--font-d);font-size:18px;font-weight:700}
+.opts{display:grid;gap:10px}
+.opts .o{display:grid;gap:6px}
+.opts .o > span{font-size:13px;opacity:.8}
+.opts .chips{margin:0}
+.cost .chip{border-color:var(--sand);color:var(--sand);font-size:16px;padding:6px 12px}
+.cost .chip[aria-pressed="true"]{background:var(--dawn);border-color:var(--dawn);color:#fff}
+.cost .chip:disabled{opacity:.35;cursor:not-allowed}
+.kcmp{border:2px solid var(--dawn);padding:10px 12px;font-size:14px;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px}
+.kcmp .big{grid-column:1/-1;font-family:var(--font-d);font-size:22px;font-weight:700;line-height:1.1}
+.kcmp .big small{font-size:14px;font-weight:500;font-family:var(--font-b);opacity:.8;margin-left:6px}
+.kcmp div span{display:block;opacity:.75;font-size:12px}
+.kcmp div b{font-family:var(--font-d);font-size:18px;font-weight:600}
+.dyn{grid-column:1/-1;font-family:var(--font-d);font-size:17px;font-weight:600;color:var(--fairway);margin-top:4px}
+.dyn em{font-style:normal;color:var(--dawn)}
+.cost input[type=number]{font:600 18px var(--font-d);width:110px;padding:5px 8px;border:2px solid var(--sand);background:transparent;color:var(--sand);border-radius:6px}
+.tmode{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media (max-width:520px){.tmode{grid-template-columns:1fr}}
+.topt{text-align:left;font-family:var(--font-b);background:var(--card);border:3px solid var(--line);padding:14px 16px;cursor:pointer;color:var(--ink);display:grid;gap:4px}
+.topt[aria-pressed="true"]{border-color:var(--fairway);background:var(--fairway-2)}
+.topt:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
+.topt .tt{font-family:var(--font-d);font-size:24px;font-weight:700;line-height:1}
+.topt b{font-family:var(--font-d);font-size:34px;font-weight:700;line-height:1;display:block;margin-top:4px}
+.topt > span > span,.topt .tn{font-size:13px;color:var(--ink-2)}
+.verdict{font-family:var(--font-d);font-size:20px;font-weight:600;margin:0 0 6px}
+.tfar{font-size:14px;color:var(--dawn);margin:0 0 10px}
+.tnote{font-size:13px;color:var(--ink-2);margin:-6px 0 12px}
+.ttable{width:100%;border-collapse:collapse;font-size:15px;background:var(--card);border:2px solid var(--line)}
+.ttable td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.ttable td:last-child{text-align:right;font-family:var(--font-d);font-size:19px;font-weight:600;white-space:nowrap}
+.ttable td span{display:block;font-size:12px;color:var(--ink-2)}
+.ttable tr.sum td{border-bottom:0;font-family:var(--font-d);font-size:18px;font-weight:700;background:var(--sand-2)}
+.ico{width:1em;height:1em;vertical-align:-.15em;margin-right:.35em;flex:none}
+h2 .ico{width:.9em;height:.9em;color:var(--dawn)}
+.slot .st .ico{color:currentColor}
+.facts .ico,.ctl .ico{color:var(--ink-2)}
+.sel-hotel .sn .ico{color:var(--dawn);width:.8em;height:.8em}
+.incl li .ico{color:var(--ink-2)}
+.topt .tt .ico{color:var(--fairway)}
+.cost tr.par td:first-child .ico{opacity:.8}
+.brow h3 .ico{color:var(--dawn)}
+.cv-facts li .ico{color:#F3B35A}
+.kl .ico{margin-right:.25em;width:.95em;height:.95em}
+.note{margin:26px 0 40px;padding:14px 16px;border:2px dashed var(--line);font-size:14px;color:var(--ink-2);max-width:46em}
+footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <symbol id="i-golf" viewBox="0 0 24 24"><path d="M6 21v-7M6 14V4l9 3-9 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="12" cy="21" rx="7" ry="2" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M2 14l8-1 4-8a2 2 0 0 1 3 1l-2 7 6 2v2l-7-1-3 5H9l1-5-6 1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M3 18v-8h18v8M3 14h18M6 10V7h5v3M3 18v2M21 18v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-beer" viewBox="0 0 24 24"><path d="M6 6h9v14H6zM15 9h3v7h-3M7 6V4h7v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 10v6M12 10v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16v-5l2-5h12l2 5v5M4 16h16M4 16v2M20 16v2M6 11h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="16" r="1.5" fill="currentColor"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="2" fill="currentColor"/><path d="M11 8l-3 4 3 2v7M11 8l4 2 3 3M11 14l-4 7M14 13l3 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pot" viewBox="0 0 24 24"><path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zM2 10h20M9 10V7M15 10V7M12 10V5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-caddie" viewBox="0 0 24 24"><circle cx="9" cy="4" r="2" fill="currentColor"/><path d="M9 8v6l-2 7M9 14l3 7M9 8l5 3M16 4l1 16M14 20h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-7 7-12a7 7 0 0 0-14 0c0 5 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-dollar" viewBox="0 0 24 24"><path d="M12 3v18M16 7.5c0-1.5-1.8-2.5-4-2.5S8 6 8 7.5s1.5 2.5 4 3 4 1.5 4 3.5-1.8 2.5-4 2.5-4-1-4-2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 8V6h18v2a2 2 0 0 0 0 4v2H3v-2a2 2 0 0 0 0-4zM3 16h18v2H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-fork" viewBox="0 0 24 24"><path d="M7 2v8a3 3 0 0 0 6 0V2M10 2v20M17 2c-2 2-2 8-2 10h3v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 20a6 6 0 0 1 12 0M14 20a5 5 0 0 1 7-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+ </defs>
+</svg>
+
+<section class="cover" id="cover" aria-label="Pages d'accueil — glissez vers la droite">
+ <div class="pane p1" id="pane1">
+  <svg class="cv-bg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07061A"/><stop offset=".5" stop-color="#1E1240"/><stop offset=".72" stop-color="#6E2456"/><stop offset=".86" stop-color="#E6702E"/><stop offset="1" stop-color="#F3B35A"/></linearGradient>
+      <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE3A3"/><stop offset=".55" stop-color="#F3A24A"/><stop offset="1" stop-color="#E6702E" stop-opacity="0"/></radialGradient>
+      <linearGradient id="green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3E8A50"/><stop offset="1" stop-color="#143A20"/></linearGradient>
+      <linearGradient id="city" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B1B4D"/><stop offset="1" stop-color="#120B28"/></linearGradient>
+      <path id="flight" d="M120 905 C 220 560, 480 520, 640 860"/>
+    </defs>
+    <rect width="800" height="1000" fill="url(#sky)"/>
+    <g class="stars" fill="#fff"><circle cx="90" cy="120" r="1.6"/><circle cx="210" cy="60" r="1.2"/><circle cx="330" cy="150" r="1.8"/><circle cx="470" cy="80" r="1.3"/><circle cx="610" cy="130" r="1.6"/><circle cx="720" cy="50" r="1.2"/><circle cx="760" cy="200" r="1.4"/><circle cx="150" cy="260" r="1.1"/><circle cx="560" cy="240" r="1.2"/><circle cx="40" cy="330" r="1.3"/><circle cx="400" cy="300" r="1"/><circle cx="680" cy="310" r="1.2"/></g>
+    <circle cx="610" cy="790" r="150" fill="url(#sun)"/>
+    <!-- montagnes -->
+    <path d="M0 800 L90 735 L160 770 L240 700 L330 760 L420 715 L500 750 L590 690 L680 740 L760 710 L800 725 L800 1000 L0 1000Z" fill="#1A1030" opacity=".85"/>
+    <!-- le Strip : silhouettes génériques -->
+    <g class="skyline">
+      <rect x="20" y="560" width="46" height="300" fill="url(#city)"/>
+      <rect x="74" y="620" width="30" height="240" fill="url(#city)"/>
+      <rect x="112" y="470" width="58" height="390" fill="url(#city)"/>
+      <rect x="178" y="600" width="26" height="260" fill="url(#city)"/>
+      <rect x="212" y="520" width="70" height="340" fill="url(#city)"/>
+      <path d="M290 860 L290 640 L318 600 L346 640 L346 860Z" fill="url(#city)"/>
+      <rect x="354" y="680" width="40" height="180" fill="url(#city)"/>
+      <rect x="402" y="560" width="52" height="300" fill="url(#city)"/>
+      <!-- tour avec nacelle -->
+      <rect x="470" y="430" width="8" height="430" fill="url(#city)"/><ellipse cx="474" cy="440" rx="22" ry="12" fill="#2B1B4D"/>
+      <rect x="500" y="660" width="60" height="200" fill="url(#city)"/>
+      <rect x="568" y="720" width="34" height="140" fill="url(#city)"/>
+      <!-- fenêtres et enseignes néon -->
+      <g class="neon n1" fill="#E3399B"><rect x="128" y="500" width="26" height="6"/><rect x="128" y="516" width="26" height="6"/><rect x="226" y="548" width="42" height="6"/><rect x="412" y="590" width="32" height="5"/></g>
+      <g class="neon n2" fill="#F3B35A"><rect x="30" y="590" width="26" height="5"/><rect x="30" y="610" width="26" height="5"/><rect x="226" y="600" width="42" height="5"/><rect x="510" y="690" width="40" height="5"/></g>
+      <g class="neon n3" fill="#7FD6FF"><rect x="128" y="560" width="26" height="5"/><rect x="300" y="700" width="30" height="5"/><rect x="412" y="640" width="32" height="5"/><rect x="574" y="750" width="22" height="5"/></g>
+      <g class="win" fill="#F4E7CF" opacity=".55"><rect x="36" y="660" width="6" height="8"/><rect x="50" y="690" width="6" height="8"/><rect x="82" y="700" width="5" height="7"/><rect x="140" y="640" width="6" height="8"/><rect x="156" y="700" width="6" height="8"/><rect x="236" y="700" width="6" height="8"/><rect x="262" y="760" width="6" height="8"/><rect x="306" y="780" width="5" height="7"/><rect x="368" y="740" width="6" height="8"/><rect x="420" y="720" width="6" height="8"/><rect x="438" y="790" width="6" height="8"/><rect x="520" y="740" width="6" height="8"/><rect x="544" y="800" width="6" height="8"/></g>
+    </g>
+    <!-- le vert qui rejoint le Strip -->
+    <path d="M0 880 Q220 830 430 870 T800 840 L800 1000 L0 1000Z" fill="url(#green)"/>
+    <path d="M520 905 q30 -20 70 -6 q20 8 50 2 q10 14 -20 22 q-50 10 -100 -18Z" fill="#EAD9B8"/>
+    <ellipse cx="640" cy="900" rx="95" ry="20" fill="#4FA061"/>
+    <line x1="640" y1="900" x2="640" y2="810" stroke="#F4E7CF" stroke-width="3"/>
+    <path class="flag" d="M640 810 L688 824 L640 838Z" fill="#E3399B"/>
+    <path d="M120 905 C 220 560, 480 520, 640 860" fill="none" stroke="#F4E7CF" stroke-width="2.5" stroke-dasharray="6 9" opacity=".7"/>
+    <circle class="ball" r="7" fill="#fff"><animateMotion dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.3 0 0.6 1"><mpath href="#flight"/></animateMotion></circle>
+  </svg>
+  <div class="cv-txt">
+    <p class="cv-kick">8 – 12 juin 2027 · Las Vegas</p>
+    <h1 class="cv-h">GOLF<span class="cv-plus">+</span>A PERFECT CIRCLE</h1>
+    <p class="cv-at">STRIP MEETS GOLF</p>
+    <ul class="cv-facts">
+      <li><svg class="ico" aria-hidden="true"><use href="#i-golf"/></svg><b>3</b> rondes au lever du jour</li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-music"/></svg><b>1</b> soir au BleauLive Theater</li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg><b>6 h 30</b> au tertre, 38 °C à midi</li>
+    </ul>
+    <button class="cv-swipe" type="button" aria-label="Page suivante"><span class="cv-track"><span class="cv-knob">→</span></span><span class="cv-lbl">Glissez vers la droite</span></button>
+  </div>
+ </div>
+ <div class="pane p2" id="pane2" hidden>
+  <div class="bz">
+    <ul class="bz-list" aria-label="En trois mots ou presque">
+      <li class="b1">SUNRISE<span>TEE TIMES</span></li>
+      <li class="b2">DESERT<span>CANYONS</span></li>
+      <li class="b3">LAKE<span>GOLF</span></li>
+      <li class="b4">NEON<span>NIGHTS</span></li>
+      <li class="b5">A PERFECT CIRCLE<span>LIVE</span></li>
+      <li class="b6">ZÉRO<span>RÉVEIL LE SAMEDI</span></li>
+    </ul>
+    <button class="cv-swipe" type="button" aria-label="Ouvrir le plan"><span class="cv-track"><span class="cv-knob">→</span></span><span class="cv-lbl">Glissez pour le plan</span></button>
+  </div>
+ </div>
+</section>
+
+<header class="hero" id="plan" tabindex="-1"><div class="wrap">
+  <h2 style="font-size:clamp(34px,8vw,60px);font-weight:700"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Le plan, jour par jour</h2>
+  <p class="sub">Trois rondes au lever du jour, un spectacle au Fontainebleau, et le choix de l'hôtel qui va avec. Tarifs estimés pour juin 2027, à confirmer quand les grilles ouvrent. Nombre de joueurs et occupation des chambres se règlent dans la barre de coût.</p>
+  <div class="chips" role="group" aria-label="Version du voyage" style="margin-top:22px">
+    <button class="chip v" data-v="long" aria-pressed="true">4 nuits · 3 rondes</button>
+    <button class="chip v" data-v="short" aria-pressed="false">3 nuits · 2 rondes + Topgolf</button>
+  </div>
+  <div class="group">
+    <div class="g1"><span class="gl"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>Nombre de joueurs</span><div class="chips" id="nchips-hero" role="group"></div></div>
+    <div class="g1"><span class="gl"><svg class="ico" aria-hidden="true"><use href="#i-bed"/></svg>Joueurs par chambre <small>(tarifs pour 2; supplément au-delà)</small></span><div class="chips" id="occhips-hero" role="group"></div></div>
+    <p class="gsum" id="gsum"></p>
+  </div>
+  <div class="sel-hotel" id="selhotel"></div>
+  <div class="incl" id="incl"></div>
+  <div class="days" id="days"></div>
+  <div class="delta" id="delta"></div>
+</div></header>
+
+<!-- ===================== HÔTELS ===================== -->
+<section id="hotels"><div class="wrap">
+  <h2><svg class="ico" aria-hidden="true"><use href="#i-bed"/></svg>Où dormir</h2>
+  <p class="lead">Le Fontainebleau est au nord du Strip. Plus on dort haut sur le boulevard, plus la sortie du spectacle est simple; plus on descend, plus on est au cœur de l'action — et plus la navette de Rio Secco est pratique chez Caesars.</p>
+  <div class="chips" role="group" aria-label="Filtrer les hôtels">
+    <button class="chip" data-f="tier" data-v="all" aria-pressed="true">Tous</button>
+    <button class="chip" data-f="tier" data-v="e" aria-pressed="false">Économique</button>
+    <button class="chip" data-f="tier" data-v="m" aria-pressed="false">Milieu</button>
+    <button class="chip" data-f="tier" data-v="p" aria-pressed="false">Premium</button>
+    <button class="chip k" id="kitch" aria-pressed="false">Cuisinette seulement</button>
+  </div>
+  <div class="legend"><span class="e">Économique</span><span class="m">Milieu</span><span class="p">Premium</span><span class="f">Fontainebleau</span><span class="b">Brasserie</span></div>
+  <div class="split">
+    <div class="mapbox" aria-label="Carte schématique du Strip">
+      <svg viewBox="0 0 380 760" role="img" aria-label="Carte schématique du Strip de Las Vegas, du nord au sud">
+        <text x="190" y="22" text-anchor="middle" class="mtitle">NORD ↑  LE STRIP  ↓ SUD</text>
+        <!-- boulevard -->
+        <rect x="178" y="34" width="24" height="700" fill="var(--road)"/>
+        <line x1="190" y1="40" x2="190" y2="730" stroke="var(--card)" stroke-width="2" stroke-dasharray="8 10"/>
+        <!-- cross streets -->
+        <g stroke="var(--road)" stroke-width="6">
+          <line x1="60" y1="92" x2="320" y2="92"/>
+          <line x1="60" y1="238" x2="320" y2="238"/>
+          <line x1="60" y1="372" x2="320" y2="372"/>
+          <line x1="60" y1="538" x2="320" y2="538"/>
+          <line x1="60" y1="650" x2="320" y2="650"/>
+        </g>
+        <text x="62" y="86" class="mlabel s">Sahara Ave</text>
+        <text x="62" y="232" class="mlabel s">Spring Mountain</text>
+        <text x="62" y="366" class="mlabel s">Flamingo Rd</text>
+        <text x="62" y="532" class="mlabel s">Tropicana</text>
+        <text x="62" y="644" class="mlabel s">Russell Rd</text>
+        <!-- off-map callouts -->
+        <g>
+          <rect x="8" y="30" width="118" height="40" rx="4" fill="var(--sand-2)" stroke="var(--dawn)" stroke-width="2"/>
+          <text x="67" y="47" text-anchor="middle" class="mlabel">Arts District</text>
+          <text x="67" y="62" text-anchor="middle" class="mlabel s">6 brasseries · 5 km</text>
+        </g>
+        <g>
+          <rect x="254" y="30" width="118" height="40" rx="4" fill="var(--sand-2)" stroke="var(--dawn)" stroke-width="2"/>
+          <text x="313" y="47" text-anchor="middle" class="mlabel">Henderson</text>
+          <text x="313" y="62" text-anchor="middle" class="mlabel s">Booze District, 25 km</text>
+        </g>
+        <!-- Wynn golf -->
+        <rect x="238" y="214" width="92" height="52" fill="var(--fairway-2)" stroke="var(--fairway)" stroke-width="1.5"/>
+        <text x="284" y="236" text-anchor="middle" class="mlabel">Wynn Golf Club</text>
+        <text x="284" y="252" text-anchor="middle" class="mlabel s">sur le Strip · 550 $+</text>
+        <!-- BleauLive -->
+        <g id="fb-pin" class="pin" data-id="fb" tabindex="0" role="button" aria-label="Fontainebleau, BleauLive Theater">
+          <polygon points="228,110 240,122 228,134 216,122" fill="var(--neon)" stroke="var(--ink)" stroke-width="2"/>
+          <text x="248" y="118" class="mlabel">Fontainebleau</text>
+          <text x="248" y="132" class="mlabel s">BleauLive · ven. soir</text>
+        </g>
+        <!-- Bali Hai -->
+        <rect x="204" y="690" width="110" height="40" fill="var(--fairway-2)" stroke="var(--fairway)" stroke-width="1.5"/>
+        <text x="259" y="707" text-anchor="middle" class="mlabel">Bali Hai</text>
+        <text x="259" y="722" text-anchor="middle" class="mlabel s">mercredi 7 h</text>
+        <text x="150" y="745" text-anchor="end" class="mlabel s">Aéroport ↘ 5 min</text>
+        <!-- Topgolf -->
+        <g class="pin" data-id="topgolf" tabindex="0" role="button" aria-label="Topgolf Las Vegas, derrière le MGM Grand">
+          <rect x="256" y="548" width="86" height="34" fill="var(--sand-2)" stroke="var(--dawn)" stroke-width="2"/>
+          <text x="299" y="563" text-anchor="middle" class="mlabel">Topgolf</text>
+          <text x="299" y="577" text-anchor="middle" class="mlabel s">derrière MGM Grand</text>
+        </g>
+        <!-- breweries -->
+        <g class="pin" data-id="ellis" tabindex="0" role="button" aria-label="Ellis Island Brewery">
+          <rect x="300" y="388" width="14" height="14" rx="3" fill="var(--dawn)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="294" y="400" text-anchor="end" class="mlabel">Ellis Island</text>
+        </g>
+        <g class="pin" data-id="sincity" tabindex="0" role="button" aria-label="Sin City Brewing, Palazzo">
+          <rect x="206" y="300" width="12" height="12" rx="3" fill="var(--dawn)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="223" y="311" class="mlabel s">Sin City (Palazzo)</text>
+        </g>
+        <g class="pin" data-id="brewdog" tabindex="0" role="button" aria-label="BrewDog Las Vegas">
+          <rect x="158" y="548" width="14" height="14" rx="3" fill="var(--dawn)" stroke="var(--ink)" stroke-width="1.5"/>
+          <text x="150" y="560" text-anchor="end" class="mlabel">BrewDog</text>
+        </g>
+        <!-- hotel pins (rendered by JS) -->
+        <g id="hotelpins"></g>
+      </svg>
+    </div>
+    <div class="cards" id="hotelcards"></div>
+  </div>
+</div></section>
+
+<!-- ===================== GOLF ===================== -->
+<section id="golf"><div class="wrap">
+  <h2><svg class="ico" aria-hidden="true"><use href="#i-golf"/></svg>Où jouer</h2>
+  <p class="lead">Trois paliers de prix, tarifs d'été par ronde. Le caddie à Vegas est presque toujours un <em>forecaddie</em> : il marche devant le groupe, donne les distances et trouve les balles, mais vous roulez en voiturette.</p>
+  <div class="chips" role="group" aria-label="Filtrer les parcours">
+    <button class="chip" data-f="gtier" data-v="all" aria-pressed="true">Tous</button>
+    <button class="chip" data-f="gtier" data-v="e" aria-pressed="false">Moins de 100 $</button>
+    <button class="chip" data-f="gtier" data-v="m" aria-pressed="false">100 à 175 $</button>
+    <button class="chip" data-f="gtier" data-v="p" aria-pressed="false">175 $ et plus</button>
+    <button class="chip k" id="caddie" aria-pressed="false">Caddie offert</button>
+  </div>
+  <div class="topcard" id="topgolf">
+    <h3><svg class="ico" aria-hidden="true"><use href="#i-target"/></svg>Soirée Topgolf Las Vegas <span class="tag pick">se choisit dans un créneau PM de l'horaire</span></h3>
+    <div class="price">60–110 $<small>par baie et par heure, 6 joueurs</small></div>
+    <p>Quatre étages, plus de 100 baies climatisées avec brumisateurs, derrière le MGM Grand. Ouvert tard, deux piscines, concerts certains soirs. Comptez deux heures pour un foursome, plus l'adhésion de 5 $ par personne et le repas. Le soir d'un jour de vol, c'est l'option qui remplace le mieux une ronde : on frappe des balles à 20 h sans se lever à 5 h le lendemain.</p>
+    <div class="facts" style="grid-column:1/-1">
+      <span>Fontainebleau : <b>4 km · 12 min en auto</b></span>
+      <span id="tg-hotel"></span>
+      <span>Bière : <b>BrewDog à 5 min à pied, de l'autre côté du Strip</b></span>
+      <span>Tarif : <b>le plus élevé de 18 h à minuit, réservation conseillée le mercredi</b></span>
+    </div>
+  </div>
+  <div class="ruler" aria-label="Distance des parcours depuis le Strip">
+    <svg viewBox="0 0 700 200" role="img" aria-label="Règle de distance : chaque parcours placé selon sa distance en voiture depuis le milieu du Strip">
+      <text x="0" y="14" class="rl">Minutes de route depuis le milieu du Strip</text>
+      <line x1="20" y1="160" x2="680" y2="160" stroke="var(--ink)" stroke-width="2"/>
+      <g id="ticks"></g>
+      <g id="gdots"></g>
+    </svg>
+  </div>
+  <div class="cards" id="golfcards"></div>
+</div></section>
+
+<!-- ===================== TRANSPORT ===================== -->
+<section id="transport"><div class="wrap">
+  <h2><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg>Se déplacer</h2>
+  <p class="lead">Calculé à partir de l'hôtel et des rondes choisis : distance réelle, Uber XL quand il y a quatre sacs, navette Caesars quand elle existe, marche jusqu'au Fontainebleau quand c'est raisonnable. Touchez une option pour qu'elle entre dans le total.</p>
+  <div class="tmode">
+    <button class="topt" id="b-uber" aria-pressed="false"><span class="tt"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>En Uber</span><span id="t-uber"></span><span class="tn">Rien à stationner, rien à conduire à 6 h; dépend des chauffeurs tôt le matin.</span></button>
+    <button class="topt" id="b-rent" aria-pressed="true"><span class="tt"><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg>Véhicule de location</span><span id="t-rent"></span><span class="tn">Liberté totale, Mesquite possible; stationnement payant dans presque tous les hôtels-casinos.</span></button>
+  </div>
+  <p class="verdict" id="t-verdict"></p>
+  <div class="chips" role="group" aria-label="Navette Caesars"><button class="chip k" id="shuttle" aria-pressed="true">Navette Caesars vers Rio Secco et Cascata offerte aux clients Caesars</button></div>
+  <p class="tnote">La navette gratuite a longtemps été offerte aux clients des hôtels Caesars; elle n'est pas confirmée pour 2027. Désactivez-la pour voir le coût en Uber XL.</p>
+  <p class="tfar" id="t-far" style="display:none">Une ronde à Mesquite est au programme : Uber n'est pas réaliste à 130 km, une journée de location est comptée à sa place dans la colonne Uber.</p>
+  <table class="ttable" id="t-table"></table>
+</div></section>
+
+<!-- ===================== BRASSERIES ===================== -->
+<section id="brew"><div class="wrap">
+  <h2><svg class="ico" aria-hidden="true"><use href="#i-beer"/></svg>Brasseries qui valent le détour</h2>
+  <p class="lead" id="brewlead"></p>
+  <div class="brew" id="brewlist"></div>
+  <div class="note">Ce qu'il faut retenir : le Strip lui-même n'a presque pas de vraies brasseries. Ellis Island, derrière le Flamingo, est la seule à distance de marche d'un hôtel du milieu du Strip; tout le reste demande un taxi de 10 à 15 minutes vers le Arts District, ou s'intègre au retour de Henderson après Rio Secco ou Reflection Bay.</div>
+</div></section>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+  <div class="sheet-box">
+    <div class="sheet-hd"><h3 id="sheet-title"></h3><button type="button" id="sheet-close" aria-label="Fermer">✕</button></div>
+    <p class="sheet-note">L'écart indiqué est l'effet sur le total par joueur, transport et caddie compris, par rapport à votre horaire actuel.</p>
+    <div class="sheet-list" id="sheet-list"></div>
+  </div>
+</div>
+
+<div class="cost" id="cost" aria-live="polite">
+  <div class="bar" id="costbar" role="button" tabindex="0" aria-expanded="false" aria-controls="costopen">
+    <div class="tot"><span id="tot">0 $</span><small>US par personne, hors vol</small><small id="totcad" class="cadline"></small></div>
+    <div class="lab" id="totlab">Touchez pour le détail et les options</div>
+    <div class="grp"><span id="grptot"></span><span id="grpsub"></span></div>
+  </div>
+  <div class="open" id="costopen">
+    <div class="inner">
+      <table id="bd"></table>
+      <div class="opts">
+        <div class="o"><span>Nombre de joueurs</span><div class="chips" role="group" id="nchips"></div></div>
+        <div class="o"><span>Joueurs par chambre</span><div class="chips" role="group" id="occhips"></div><span id="roomsum"></span></div>
+        <div class="o"><span id="cooklab">Repas cuisinés à l'hôtel (demande une cuisinette)</span><div class="chips" role="group" id="cookchips"><button class="chip ck" data-v="dej" aria-pressed="false">Déjeuners</button><button class="chip ck" data-v="din" aria-pressed="false">Dîners</button><button class="chip ck" data-v="sou" aria-pressed="false">Soupers</button></div></div>
+        <div class="kcmp" id="kcmp"></div>
+        <div class="o"><span>Bières et sorties, par jour et par personne</span><div class="chips" role="group"><button class="chip ou" data-v="30" aria-pressed="false">30 $ · sobre</button><button class="chip ou" data-v="60" aria-pressed="true">60 $ · normal</button><button class="chip ou" data-v="110" aria-pressed="false">110 $ · Vegas</button></div></div>
+        <div class="o"><span>Billet A Perfect Circle, par personne</span><label><input type="number" id="ticket" value="150" min="0" step="10"> $</label></div>
+        <div class="o"><span>Supplément par nuit pour chaque occupant au-delà de 2 par chambre</span><div class="chips" role="group"><button class="chip sp" data-v="0" aria-pressed="false">aucun</button><button class="chip sp" data-v="30" aria-pressed="true">30 $</button><button class="chip sp" data-v="45" aria-pressed="false">45 $</button></div></div>
+        <div class="o"><span>Majoration de la nuit du vendredi</span><div class="chips" role="group"><button class="chip fr" data-v="1" aria-pressed="false">aucune</button><button class="chip fr" data-v="1.3" aria-pressed="false">×1,3</button><button class="chip fr" data-v="1.5" aria-pressed="true">×1,5</button></div></div>
+        <div class="o"><span>Taux de change USD → CAD</span><label><input type="number" id="fx" value="1.37" min="1" max="2" step="0.01"> $ CA par $ US</label></div>
+        <div class="o"><span>Marge pour imprévus et pourboires divers</span><div class="chips" role="group"><button class="chip ct" data-v="0" aria-pressed="false">0 %</button><button class="chip ct" data-v="5" aria-pressed="true">5 %</button><button class="chip ct" data-v="10" aria-pressed="false">10 %</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap">Prix en dollars américains, par nuit ou par ronde, estimés pour juin 2027 à partir des grilles d'été 2026. Hébergement : fourchettes de juin en semaine, nuit du vendredi à 1,5 ×, taxe de 13,38 % sur la chambre et les frais de villégiature; un total trouvé sur un site de réservation remplace tout ça. Distances à pied calculées par le boulevard. Uber : base 6 $ + 1,30 $/km, pourboire 15 %, XL à +55 % pour les trajets avec sacs; location : VUS intermédiaire 85 $/jour tout inclus, essence 0,13 $/km, plein de retour et second conducteur non compris. Tarifs de caddie et de Topgolf indicatifs. Véhicules, caddies et baies Topgolf sont comptés par tranche de 4 (ou 6) joueurs, puis partagés sur le groupe.</div></footer>
+
+<script>
+const ico=n=>`<svg class="ico" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const KI={golf:'golf',show:'music',top:'target',travel:'plane',free:'sun'};
+const H=[
+ // id, name, tier, x(side: 'w'|'e'), y, walkFB(min), kmFB, strip, kitchen, price, desc, brewery, pick
+ {id:'fb',n:'Fontainebleau',t:'p',s:'e',y:122,walk:0,km:0,strip:'Nord du Strip',k:false,p:'220–350 $',d:"Vous dormez au-dessus de la salle. Sortie de spectacle à zéro minute, tours modernes, piscines immenses. Le moins pratique pour Rio Secco (pas de navette Caesars).",b:'Taxi 12 min vers le Arts District'},
+ {id:'rw',n:'Resorts World — Conrad / Crockfords',t:'p',s:'w',y:150,walk:5,km:.35,strip:'Nord, en face',k:false,p:'180–300 $',d:"Directement en face du Fontainebleau par la passerelle. Le Hilton du même complexe est le palier milieu de gamme du même bâtiment.",b:'Taxi 12 min vers le Arts District'},
+ {id:'wynn',n:'Wynn / Encore',t:'p',s:'e',y:190,walk:12,km:1.0,strip:'Nord-centre',k:false,p:'250–400 $',d:"Le classique premium. Le Wynn Golf Club est littéralement derrière l'hôtel si une quatrième ronde vous tente, caddie obligatoire.",b:'Sin City Brewing au Palazzo, 8 min à pied'},
+ {id:'rwh',n:'Resorts World — Las Vegas Hilton',t:'m',s:'w',y:166,walk:5,km:.35,strip:'Nord, en face',k:false,p:'120–190 $',d:"Même adresse que Conrad, chambres standard. La solution la plus simple si la priorité est de rentrer à pied après A Perfect Circle.",b:'Taxi 12 min vers le Arts District'},
+ {id:'trump',n:'Trump International',t:'m',s:'w',y:200,walk:11,km:.9,strip:'Nord, en retrait',k:true,p:'120–180 $',d:"Toutes les suites ont une cuisinette. Pas de casino, pas de foule, piscine calme : le meilleur sommeil avant un départ à 6 h 30. À 11 min de marche de la salle.",b:'Taxi 12 min vers le Arts District'},
+ {id:'hgv',n:'Hilton Grand Vacations on the Strip',t:'m',s:'w',y:80,walk:7,km:.55,strip:'Nord, près du Sahara',k:true,p:'150–220 $',d:"Suites 1 chambre avec cuisine complète, lave-vaisselle, BBQ à la piscine. Le plus proche du Fontainebleau parmi les options avec cuisinette.",b:'Sin City Brewing au Sahara, 4 min à pied'},
+ {id:'ti',n:'Treasure Island',t:'m',s:'w',y:288,walk:18,km:1.5,strip:'Centre-nord',k:false,p:'60–100 $',d:"Bon compromis prix-position : à mi-chemin entre le Fontainebleau et le cœur du Strip, chambres rénovées correctes.",b:'Sin City Brewing au Palazzo, 5 min à pied'},
+ {id:'harrahs',n:"Harrah's",t:'m',s:'e',y:352,walk:28,km:2.3,strip:'Cœur du Strip',k:false,p:'50–90 $',d:"Votre choix de départ. Navette Caesars vers Rio Secco incluse, LINQ à côté, tout le centre à pied. Taxi de 8 min pour revenir du Fontainebleau le vendredi soir.",b:'Ellis Island, 10 min à pied'},
+ {id:'circus',n:'Circus Circus',t:'e',s:'w',y:132,walk:8,km:.6,strip:'Nord',k:false,p:'30–60 $',d:"Parmi les moins chers du Strip et à 8 minutes de la salle. Hôtel daté, bruyant, mais si la chambre ne sert qu'à dormir, le calcul se tient.",b:'Taxi 10 min vers le Arts District'},
+ {id:'sahara',n:'Sahara Las Vegas',t:'e',s:'e',y:70,walk:9,km:.7,strip:'Extrémité nord',k:false,p:'45–80 $',d:"Rénové, station de monorail, à 9 minutes à pied du Fontainebleau. Souvent le meilleur rapport qualité-prix du nord du Strip.",b:'Sin City Brewing sur place'},
+ {id:'westgate',n:'Westgate Las Vegas',t:'e',s:'e',y:160,x:330,below:true,walk:15,km:1.2,strip:'Hors Strip, Paradise Rd',k:false,p:'45–80 $',d:"Derrière le centre des congrès, 15 min à pied du Fontainebleau. Grandes chambres pour le prix, mais rien à distance de marche sauf le monorail.",b:'Taxi 10 min vers le Arts District'},
+ {id:'strat',n:'The STRAT',t:'e',s:'e',y:48,x:214,pick:true,walk:19,km:1.6,strip:'Extrémité nord, au-delà du Sahara',k:false,p:'20–45 $',d:"Le prix plancher du Strip, souvent sous 30 $ la nuit en juin, chambres 2 lits queen pour quatre. Tour d'observation, hôtel daté, 19 min de marche jusqu'au Fontainebleau par un bout de boulevard peu animé.",b:'Taxi 8 min vers le Arts District'},
+ {id:'nyny',n:'New York-New York',t:'e',s:'w',y:560,walk:55,km:4.5,strip:'Sud du Strip',k:false,p:'40–75 $',d:"Hôtel MGM bien noté et bon marché, à 10 min de Bali Hai et de Topgolf. Loin du Fontainebleau : taxi obligatoire le vendredi soir. Donne accès à Shadow Creek.",b:'BrewDog à 8 min à pied'},
+ {id:'excal',n:'Excalibur',t:'e',s:'w',y:596,walk:60,km:5,strip:'Sud du Strip',k:false,p:'15–40 $',d:"Hôtel MGM d'entrée de gamme, chambres Resort Tower 2 lits queen rénovées, piscines. À 5 min de Bali Hai et 10 min de Topgolf; le Fontainebleau est à l'autre bout du Strip, taxi ou monorail + marche le vendredi soir.",b:'BrewDog à 12 min à pied',pick2:true},
+ {id:'resinn',n:'Residence Inn Convention Center',t:'e',s:'e',y:192,x:330,below:true,walk:17,km:1.4,strip:'Hors Strip, Paradise Rd',k:true,p:'300–360 $',d:"Suite avec cuisine complète, déjeuner inclus, zéro casino, confortable à 3 ou 4 (2 lits queen + divan-lit). Trouvé à 475 $ CA la nuit taxes incluses : cher à deux, imbattable à quatre. Prévoir un taxi pour le reste.",pick2:true,b:'Taxi 10 min vers le Arts District'},
+];
+const G=[
+ // name, tier, price, caddie: 'inc'|'opt'|'no', caddieTxt, min, km, where, desc, pick
+ {n:'Bali Hai',t:'e',p:'70–130 $',c:'opt',ct:'disponible sur demande',min:10,km:4,w:'Bout sud du Strip',d:"Collé sur Mandalay Bay. Plat, large, pas de surprise : la ronde d'échauffement idéale le lendemain d'un vol. Prix plus élevé que son niveau à cause de l'emplacement.",pick:'mercredi'},
+ {n:'Las Vegas National',t:'e',p:'50–80 $',c:'no',ct:'non offert',min:10,km:4,w:'Est du Strip',d:"Parcours historique de 1961 (première victoire de Tiger sur le circuit), tracé classique avec des arbres. Le moins cher à 10 minutes du Strip."},
+ {n:'Paiute — Sun Mountain',t:'e',p:'60–100 $',c:'no',ct:'non offert',min:30,km:40,w:'Nord-ouest',d:"Le plus accessible des trois tracés Pete Dye de Paiute. Même désert sans maisons que le Wolf, à moitié prix."},
+ {n:'Boulder Creek',t:'e',p:'60–90 $',c:'no',ct:'non offert',min:35,km:40,w:'Boulder City',d:"Favori des locaux, 27 trous bien entretenus, tarifs municipaux. Sur la route de Cascata."},
+ {n:'Rio Secco',t:'m',p:'100–150 $',c:'opt',ct:'« T-Mate » en option, ~200 $',min:25,km:22,w:'Henderson',d:"Rees Jones dans les canyons, école Butch Harmon, navette Caesars. Le plus exigeant de vos trois rondes, d'où la place du jeudi.",pick:'jeudi'},
+ {n:'Reflection Bay',t:'m',p:'120–160 $',c:'opt',ct:'forecaddie en option (inclus avec forfaits hôtel Lake Las Vegas)',min:33,km:30,w:'Lake Las Vegas',d:"Signature Jack Nicklaus, cinq trous sur le lac, conditions parmi les meilleures de la vallée. Village au bord de l'eau pour dîner après.",pick:'vendredi'},
+ {n:'Paiute — Wolf',t:'m',p:'100–150 $',c:'no',ct:'non offert',min:30,km:40,w:'Nord-ouest',d:"7 600 verges des arrières, Pete Dye pur désert, zéro construction. Le test le plus sérieux de la liste publique."},
+ {n:'TPC Las Vegas',t:'m',p:'100–175 $',c:'opt',ct:'forecaddie disponible',min:25,km:25,w:'Summerlin',d:"Propriété du PGA Tour, conditionnement de tournoi, vue sur le Strip au loin. Bonne solution de rechange à Rio Secco."},
+ {n:'Conestoga',t:'m',p:'100–150 $',c:'no',ct:'non offert',min:85,km:130,w:'Mesquite',d:"Gary Panks dans les canyons rouges, spectaculaire mais plus doux que son voisin Wolf Creek. Une journée complète avec la route."},
+ {n:'Wolf Creek',t:'p',p:'150–200 $',c:'no',ct:'non offert',min:85,km:130,w:'Mesquite',d:"Le parcours le plus photographié du Nevada : dénivelés fous, voiturette obligatoire, 300 $ au printemps. Seul le prix d'été le rend raisonnable."},
+ {n:'Cascata',t:'p',p:'200–250 $',c:'inc',ct:'forecaddie obligatoire, inclus (pourboire en sus)',min:35,km:45,w:'Boulder City',d:"La réponse de Caesars à Shadow Creek : cascade de 128 m, casier à votre nom, bâtons PXG en location. 425 $ en saison, moitié prix en juin. Navette Caesars."},
+ {n:'Wynn Golf Club',t:'p',p:'550 $+',c:'inc',ct:'caddie obligatoire, ~225 $ par caddie',min:0,km:1,w:'Sur le Strip',d:"Tom Fazio derrière le Wynn, à 12 min de marche du Fontainebleau. Ne baisse pas en été. Le seul parcours où on part à pied de l'hôtel."},
+ {n:'Shadow Creek',t:'p',p:'1 250 $',c:'inc',ct:'caddie obligatoire, inclus',min:25,km:25,w:'North Las Vegas',d:"Réservé aux clients des hôtels MGM, limousine depuis l'hôtel. Hors budget, mais c'est le parcours no 1 de l'État."},
+];
+const B=[
+ {n:'Ellis Island Brewery',ll:[36.1163,-115.1620],fb:'2,6 km · 8 min taxi',hh:'0,8 km · 10 min à pied',d:"Casino de quartier derrière le Flamingo qui brasse depuis 1998. Bières à 3–4 $, steak à prix dérisoire; une institution, pas un lieu de design."},
+ {n:'Able Baker Brewing (Arts District)',ll:[36.1575,-115.1515],fb:'4,5 km · 12 min',hh:'5 km · 12 min',d:"Élue meilleure brasserie de Vegas par le Las Vegas Weekly. 30 lignes, cuisine ouverte. Le point de départ naturel d'une soirée Arts District."},
+ {n:'HUDL Brewing (Arts District)',ll:[36.1595,-115.1520],fb:'4,5 km · 12 min',hh:'5 km · 12 min',d:"Grande terrasse, jeux extérieurs, ambiance de cour arrière. À deux rues d'Able Baker."},
+ {n:'Nevada Brew Works (Arts District)',ll:[36.1567,-115.1530],fb:'4,5 km · 12 min',hh:'5 km · 12 min',d:"Terrasse avec vue sur le Strip, 20 bières dont 5 exclusives. Chiens et familles bienvenus."},
+ {n:'Bad Beat Brewing (Arts District)',ll:[36.1585,-115.1525],fb:'4,5 km · 12 min',hh:'5 km · 12 min',d:"Ancien pilier de Henderson déménagé sur Main Street en 2025. Thème poker, petites cuvées."},
+ {n:'Tenaya Creek / Beer Zombies (Downtown)',ll:[36.1690,-115.1430],fb:'5,5 km · 12 min',hh:'6,5 km · 15 min',d:"Un des pionniers de la ville (1999), maintenant partagé avec Beer Zombies. Hazy IPA de référence."},
+ {n:'CraftHaus Brewery (Henderson)',ll:[36.0330,-115.0030],fb:'25 km · 25 min',hh:'22 km · 22 min',d:"Booze District de Henderson, vitres sur la salle de brassage, style belge et allemand. À 10 min de Rio Secco : l'arrêt logique du jeudi midi."},
+ {n:'Astronomy Aleworks (Henderson)',ll:[36.0335,-115.0040],fb:'25 km · 25 min',hh:'22 km · 22 min',d:"Familiale, deux portes de CraftHaus. Enchaîner les deux fait une après-midi de Booze District."},
+ {n:'BrewDog Las Vegas (Strip sud)',ll:[36.1050,-115.1730],fb:'5 km · 12 min',hh:'2,5 km · 8 min',d:"Toit-terrasse avec vue sur le Strip en face du Park MGM, jeux rétro, lignes locales en plus des leurs. Pratique après Bali Hai."},
+];
+
+// resort fee per night (fee), Caesars property (cz) → navette gratuite Rio Secco / Cascata
+const HX={fb:{fee:50,park:30,ll:[36.1370,-115.1640]},rw:{fee:50,park:25,ll:[36.1326,-115.1665]},wynn:{fee:55,park:25,ll:[36.1264,-115.1659]},rwh:{fee:45,park:25,ll:[36.1326,-115.1665]},trump:{fee:39,park:25,ll:[36.1282,-115.1710]},hgv:{fee:0,park:0,noSupp:true,ll:[36.1415,-115.1575]},ti:{fee:45,park:20,ll:[36.1247,-115.1718]},harrahs:{fee:45,park:20,cz:true,ll:[36.1197,-115.1700]},circus:{fee:40,park:15,ll:[36.1375,-115.1655]},sahara:{fee:40,park:15,ll:[36.1425,-115.1565]},westgate:{fee:40,park:15,ll:[36.1360,-115.1515]},resinn:{fee:0,park:0,bf:true,noSupp:true,ll:[36.1315,-115.1530]},strat:{fee:39,park:15,ll:[36.1475,-115.1557]},excal:{fee:40,park:20,ll:[36.0986,-115.1755]},nyny:{fee:45,park:20,ll:[36.1023,-115.1745]}};
+const LL={'Bali Hai':[36.0865,-115.1730],'Las Vegas National':[36.1200,-115.1380],'Paiute — Sun Mountain':[36.4000,-115.3400],'Boulder Creek':[35.9780,-114.8600],'Rio Secco':[36.0020,-115.1050],'Reflection Bay':[36.1020,-114.9280],'Paiute — Wolf':[36.4000,-115.3400],'TPC Las Vegas':[36.1950,-115.3050],'Conestoga':[36.8290,-114.1120],'Wolf Creek':[36.8160,-114.0900],'Cascata':[35.9620,-114.8800],'Wynn Golf Club':[36.1260,-115.1620],'Shadow Creek':[36.2650,-115.1150],airport:[36.0840,-115.1537],topgolf:[36.1065,-115.1640],fontainebleau:[36.1370,-115.1640]};
+const kmBetween=(a,b)=>{const R=6371,toR=x=>x*Math.PI/180;const dLat=toR(b[0]-a[0]),dLon=toR(b[1]-a[1]);const h=Math.sin(dLat/2)**2+Math.cos(toR(a[0]))*Math.cos(toR(b[0]))*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(h))*1.3;}; // ×1,3 : facteur route
+// Uber : tarif aller simple estimé, pourboire 15 % inclus. X = 4 personnes sans bagages; XL = 4 golfeurs + 4 sacs
+const uberX=km=>(6+1.3*km)*1.15, uberXL=km=>(6+1.3*km)*1.55*1.15;
+const RENT={day:85,gas:0.13};
+const TAX=0.1338;      // taxe d'hébergement, comté de Clark, sur la chambre et les frais de villégiature
+const FRI=1.5;         // nuit du vendredi : tarif majoré
+const CADTIP=20;       // pourboire par joueur quand on prend un forecaddie optionnel // VUS intermédiaire tout inclus par jour; essence par km
+// per-course: tr = transport aller-retour par personne (taxi partagé à 4), trz = idem depuis un hôtel Caesars, cad = coût caddie par personne si ajouté
+const GX={'Bali Hai':{tr:8,cad:35},'Las Vegas National':{tr:8},'Paiute — Sun Mountain':{tr:25},'Boulder Creek':{tr:25},'Rio Secco':{tr:18,trz:0,cad:50},'Reflection Bay':{tr:23,cad:35},'Paiute — Wolf':{tr:25},'TPC Las Vegas':{tr:20,cad:35},'Conestoga':{tr:30},'Wolf Creek':{tr:30},'Cascata':{tr:25,trz:0,cad:25,cadInc:true},'Wynn Golf Club':{tr:0,cad:60,cadInc:true},'Shadow Creek':{tr:0,cad:25,cadInc:true}};
+const mid=s=>{const m=s.replace(/\s/g,'').match(/(\d+)(?:–(\d+))?/);return m?(m[2]?(+m[1]+ +m[2])/2:+m[1]):0;};
+const tierName={e:'Économique',m:'Milieu',p:'Premium'};
+const colors={e:'var(--eco)',m:'var(--mid)',p:'var(--prem)'};
+const hc=document.getElementById('hotelcards'), hp=document.getElementById('hotelpins');
+function bar(min){const w=Math.min(120,Math.max(8,min*4));return `<span class="walk"><i style="width:${w}px"></i><b>${min===0?'sur place':min+' min à pied'}</b></span>`;}
+hc.innerHTML=H.map(h=>`
+<article class="card ${h.t}" data-id="${h.id}" data-t="${h.t}" data-k="${h.k?1:0}">
+  <h3>${h.n} ${h.pick?'<span class="tag pick">hôtel choisi</span>':''}${h.pick2?'<span class="tag pick">candidat retenu</span>':''}</h3>
+  <div class="price">${h.p}<small>par nuit en semaine, avant taxe et frais</small></div>
+  <p class="desc">${h.d}</p>
+  <div class="facts">
+    <span>${ico('walk')}Fontainebleau : ${bar(h.walk)}</span>
+    <span>${ico('pin')}Strip : <b>${h.strip}</b></span>
+    <span>${ico('pot')}Cuisinette : <span class="tag ${h.k?'yes':'no'}">${h.k?'oui':'non'}</span></span>
+    <span>${ico('beer')}Bière : <b>${h.b}</b></span>
+    <span class="tag" style="background:${colors[h.t]};color:#fff">${tierName[h.t]}</span>
+  </div>
+  <div class="dyn" data-hd="${h.id}"></div>
+  <div class="ctl"><label class="inp">Tarif trouvé <input type="number" class="hp" data-h="${h.id}" placeholder="${mid(h.p)}" min="0" step="5"> $ US/nuit</label><label class="inp">ou total du séjour <input type="number" class="ht" data-h="${h.id}" placeholder="ex. 565" min="0" step="5"> $ CA par chambre de 2, pour les nuits de la version affichée, taxes et frais inclus</label><button class="sel" data-h="${h.id}" aria-pressed="${h.pick?'true':'false'}">${h.pick?'Hôtel choisi':'Choisir cet hôtel'}</button><span class="fee">${HX[h.id].fee?'+ '+HX[h.id].fee+' $ de frais par nuit':'sans frais de villégiature'}${HX[h.id].cz?' · navette Rio Secco et Cascata (si offerte)':''}</span></div>
+</article>`).join('');
+const shortName=h=>h.id==='rwh'?'RW Hilton':h.id==='rw'?'RW Conrad':h.id==='westgate'?'Westgate':h.id==='nyny'?'NY-NY':h.id==='excal'?'Excalibur':h.id==='strat'?'STRAT':h.n.split(' — ')[0].replace('Hilton Grand Vacations on the Strip','Hilton Grand Vac.').replace('Residence Inn Convention Center','Residence Inn').replace('Trump International','Trump').replace('Sahara Las Vegas','Sahara');
+hp.innerHTML=H.filter(h=>h.id!=='fb').map(h=>{
+  const x=h.x||(h.s==='w'?166:214);
+  const tx=h.below?x:(h.s==='w'?x-12:x+12), ty=h.below?h.y+20:h.y+4, anc=h.below?'middle':(h.s==='w'?'end':'start');
+  return `<g class="pin" data-id="${h.id}" tabindex="0" role="button" aria-label="${h.n}">
+    <circle cx="${x}" cy="${h.y}" r="${h.pick?9:7}" fill="${colors[h.t]}" stroke="var(--ink)" stroke-width="2"/>
+    <text x="${tx}" y="${ty}" text-anchor="${anc}" class="mlabel">${shortName(h)}</text>
+  </g>`}).join('');
+
+// golf
+const gc=document.getElementById('golfcards');
+const cTag={inc:['inc','inclus / obligatoire'],opt:['opt','en option'],no:['no','non offert']};
+gc.innerHTML=G.map(g=>`
+<article class="card ${g.t}" data-t="${g.t}" data-c="${g.c}">
+  <h3>${g.n} ${g.pick?`<span class="tag pick">${g.pick}</span>`:''}</h3>
+  <div class="price">${g.p}<small>par ronde, été</small></div>
+  <p class="desc">${g.d}</p>
+  <div class="facts">
+    <span>${ico('car')}Strip : <b>${g.min===0?'sur le Strip':g.min+' min · '+g.km+' km'}</b></span>
+    <span>${ico('pin')}Secteur : <b>${g.w}</b></span>
+    <span>${ico('caddie')}Caddie : <span class="tag ${cTag[g.c][0]}">${cTag[g.c][1]}</span> <span style="color:var(--ink-2)">${g.ct}</span></span>
+  </div>
+  <div class="dyn" data-gd="${g.n}"></div>
+  <div class="ctl">
+    <label class="inp">Tarif trouvé <input type="number" class="gp" data-g="${g.n}" placeholder="${mid(g.p)}" min="0" step="5"> $</label>
+    <button class="sel play" data-g="${g.n}" aria-pressed="${g.pick?'true':'false'}">${g.pick?'Au programme':'Ajouter cette ronde'}</button>
+    ${GX[g.n].cad?(GX[g.n].cadInc?`<span class="fee">caddie inclus, pourboire ~${GX[g.n].cad} $ par pers.</span>`:`<button class="sel cad" data-g="${g.n}" aria-pressed="false">+ caddie, ~${GX[g.n].cad*4} $ par groupe de 4</button>`):''}
+    
+  </div>
+</article>`).join('');
+// ruler: log-ish scale 0..90 min
+const sx=m=>20+660*Math.log1p(m)/Math.log1p(90);
+const ticks=[0,10,25,35,60,90];
+document.getElementById('ticks').innerHTML=ticks.map(t=>`<line x1="${sx(t)}" y1="154" x2="${sx(t)}" y2="166" stroke="var(--ink)" stroke-width="2"/><text x="${sx(t)}" y="182" text-anchor="middle" class="rl s">${t===0?'Strip':t+' min'}</text>`).join('');
+(function(){
+  const lanes=[]; // chaque lane : liste de [x0,x1] occupés
+  const items=G.map(g=>({g,x:sx(g.min),short:g.n.replace('Paiute — ','').replace('Las Vegas National','LV National').replace('Wynn Golf Club','Wynn').replace('TPC Las Vegas','TPC')})).sort((a,b)=>a.x-b.x);
+  const out=items.map(it=>{
+    const w=it.short.length*5.8+16; const free=(L,a,b)=>!(lanes[L]||[]).some(([c,d])=>!(b<c-4||a>d+4));
+    let L=0,left=false;
+    for(;;L++){ if(!free(L,it.x-7,it.x+7)) continue; if(it.x+w<=696&&free(L,it.x+9,it.x+w)){left=false;break;} if(it.x-w>=4&&free(L,it.x-w,it.x-9)){left=true;break;} }
+    (lanes[L]=lanes[L]||[]).push(left?[it.x-w,it.x-9]:[it.x+9,it.x+w],[it.x-7,it.x+7]);
+    const y=142-L*17;
+    return `<g><line x1="${it.x}" y1="${y+6}" x2="${it.x}" y2="160" stroke="${colors[it.g.t]}" stroke-width="2"/><circle cx="${it.x}" cy="${y}" r="6" fill="${colors[it.g.t]}" stroke="var(--ink)" stroke-width="1.5"/><text x="${left?it.x-9:it.x+9}" y="${y+4}" text-anchor="${left?'end':'start'}" class="rl">${it.short}</text></g>`;
+  });
+  document.getElementById('gdots').innerHTML=out.join('')+`<text x="680" y="14" text-anchor="end" class="rl s">échelle compressée · glissez sur mobile</text>`;
+})();
+
+// breweries
+function distTxt(a,b){const km=kmBetween(a,b);const walk=Math.round(km*12);const drive=Math.round(3+km*2.2);return km<2.2?`${km.toFixed(1).replace('.',',')} km · ${walk} min à pied`:`${km.toFixed(1).replace('.',',')} km · ${drive} min en auto`;}
+function renderBrews(){const h=H.find(x=>x.id===S.hotel);const hx=HX[S.hotel];
+  document.getElementById('brewlead').textContent=`Deux distances par adresse : depuis le Fontainebleau (la salle) et depuis ${h.n.split(' — ')[0]}, votre hôtel actuel.`;
+  document.getElementById('brewlist').innerHTML=B.map(b=>`<div class="brow"><h3>${ico('beer')}${b.n}</h3><p>${b.d}</p><div class="dist">Fontainebleau ${distTxt(LL.fontainebleau,b.ll)}<span>${h.n.split(' — ')[0]} ${distTxt(hx.ll,b.ll)}</span></div></div>`).join('');
+  document.getElementById('tg-hotel').innerHTML=`${h.n.split(' — ')[0]} : <b>${distTxt(hx.ll,LL.topgolf)}</b>`;}
+
+// filters
+let tier='all',kit=false,gtier='all',cad=false;
+function applyH(){
+  document.querySelectorAll('#hotelcards .card').forEach(c=>{
+    const ok=(tier==='all'||c.dataset.t===tier)&&(!kit||c.dataset.k==='1');
+    c.classList.toggle('hide',!ok);
+    const pin=document.querySelector(`.pin[data-id="${c.dataset.id}"]`); if(pin) pin.classList.toggle('dim',!ok);
+  });
+}
+function applyG(){
+  document.querySelectorAll('#golfcards .card').forEach(c=>{
+    const ok=(gtier==='all'||c.dataset.t===gtier)&&(!cad||c.dataset.c!=='no');
+    c.classList.toggle('hide',!ok);
+  });
+}
+document.querySelectorAll('.chip[data-f]').forEach(b=>b.addEventListener('click',()=>{
+  const f=b.dataset.f; document.querySelectorAll(`.chip[data-f="${f}"]`).forEach(x=>x.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true');
+  if(f==='tier'){tier=b.dataset.v;applyH();}else{gtier=b.dataset.v;applyG();}
+}));
+document.getElementById('kitch').addEventListener('click',e=>{kit=!kit;e.currentTarget.setAttribute('aria-pressed',kit);applyH();});
+document.getElementById('caddie').addEventListener('click',e=>{cad=!cad;e.currentTarget.setAttribute('aria-pressed',cad);applyG();});
+
+// trip versions
+const V={
+ long:[{d:8,n:'mardi',am:{k:'travel',t:'Vol YUL → LAS',s:'Air Canada direct'},pm:{}},{d:9,n:'mercredi',am:{},pm:{}},{d:10,n:'jeudi',am:{},pm:{}},{d:11,n:'vendredi',am:{},pm:{}},{d:12,n:'samedi',am:{k:'travel',t:'Vol 11 h',s:'aéroport pour 9 h'},pm:null}],
+ short:[{d:9,n:'mercredi',am:{k:'travel',t:'Vol YUL → LAS',s:'Air Canada direct'},pm:{}},{d:10,n:'jeudi',am:{},pm:{}},{d:11,n:'vendredi',am:{},pm:{}},{d:12,n:'samedi',am:{k:'travel',t:'Vol 11 h',s:'aéroport pour 9 h'},pm:null}]
+};
+const KL={golf:'Golf',show:'Spectacle',top:'Topgolf',travel:'Vol',free:'Libre'};
+function renderDays(v){
+  const days=V[v];
+  const slot=(x,half,day)=>{
+    if(x&&x.k==='travel') return `<button type="button" class="slot travel" data-day="${day}" data-half="${half}"><span class="half">${half}</span><span class="st">${x.t}</span><span class="ss">${x.s}</span><span class="kl">${ico('plane')}Vol</span></button>`;
+    if(half==='AM'){ const g=S.slots[v][day]; const gg=G.find(q=>q.n===g);
+      return g?`<button type="button" class="slot golf" data-day="${day}" data-half="AM"><span class="half">AM</span><span class="st">${g}</span><span class="ss">départ ${g==='Bali Hai'?'7 h':'6 h 30'}${GX[g].trz===0?', navette Caesars':''} · ${gg.min} min</span><span class="kl">${ico('golf')}Golf</span></button>`
+              :`<button type="button" class="slot free" data-day="${day}" data-half="AM"><span class="half">AM</span><span class="st">Matin libre</span><span class="ss">touchez pour ajouter une ronde</span><span class="kl">${ico('sun')}Libre</span></button>`; }
+    if(x===null) return `<div class="slot none"><span class="half">PM</span><span class="st">—</span></div>`;
+    const key=S.pm[v][day]; const o=PMO[key]||PMO.pool;
+    return `<button type="button" class="slot ${o.k}" data-day="${day}" data-half="PM"><span class="half">PM</span><span class="st">${o.t}</span><span class="ss">${o.s}</span><span class="kl">${ico(KI[o.k])}${KL[o.k]}</span></button>`;
+  };
+  document.getElementById('days').innerHTML=days.map(x=>`<div class="dayc"><div class="dh"><span class="d">${x.d}</span><span class="n">${x.n}</span></div>${slot(x.am,'AM',x.d)}${slot(x.pm,'PM',x.d)}</div>`).join('');
+  document.getElementById('days').style.gridTemplateColumns=window.innerWidth>640?`repeat(${days.length},1fr)`:'';
+  document.querySelectorAll('#days button.slot').forEach(b=>b.addEventListener('click',()=>openSheet(+b.dataset.day,b.dataset.half)));
+}
+document.querySelectorAll('.chip.v').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.chip.v').forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true'); S.ver=b.dataset.v; syncPlay(); if(typeof refreshCards==='function') refreshCards(); renderDays(b.dataset.v);
+}));
+window.addEventListener('resize',()=>renderDays(document.querySelector('.chip.v[aria-pressed="true"]').dataset.v));
+
+// ===== coût total =====
+const S={ver:'long',car:true,shuttle:true,n:4,slots:{long:{9:'Bali Hai',10:'Rio Secco',11:'Reflection Bay'},short:{10:'Rio Secco',11:'Reflection Bay'}},pm:{long:{8:'arrival',9:'pool',10:'henderson',11:'show'},short:{9:'topgolf',10:'henderson',11:'show'}},extras:new Set(),hp:{},gp:{},ht:{strat:{v:450,nights:4},excal:{v:375,nights:4},nyny:{v:565,nights:4},resinn:{v:1900,nights:4}},supp:30,hotel:'strat',fri:1.5,fx:1.37,fxFee:0.025,cont:5,play:new Set(['Bali Hai','Rio Secco','Reflection Bay']),cad:new Set(),occ:2,cook:new Set(),out:60,ticket:150,tg:false,tgForced:false};
+// repas par personne : r = restaurant, c = cuisiné (épicerie)
+const MEALS={dej:{n:'Déjeuners',r:22,c:6},din:{n:'Dîners',r:32,c:10},sou:{n:'Soupers',r:75,c:25}};
+const fmt=n=>Math.round(n).toLocaleString('fr-CA')+' $';
+const fmtCA=n=>Math.round(n*S.fx).toLocaleString('fr-CA')+' $ CA';
+const hRate=h=>S.hp[h.id]??mid(h.p);
+const gRate=g=>S.gp[g.n]??mid(g.p);
+const rooms=()=>Math.ceil(S.n/S.occ);            // chambres nécessaires
+const vehicles=()=>Math.ceil(S.n/4);             // VUS ou Uber XL : 4 golfeurs et 4 sacs
+const nightFactor=nights=>nights-1+S.fri;  // une nuit de vendredi dans chaque version
+// supplément pour les 3e et 4e occupants : les tarifs affichés sont pour 2 personnes par chambre
+const extraPP=(nights,id)=>{if(id&&HX[id].noSupp) return 0; let e=0,left=S.n; for(let r=0;r<rooms();r++){const occ=Math.min(S.occ,left); left-=occ; e+=Math.max(0,occ-2)*S.supp*nights;} return e*(1+TAX)/S.n;};
+const roomPP=(price,fee,nights,id)=>{ const base=(id&&S.ht[id])?rooms()*(S.ht[id].v/S.fx)*(nights/S.ht[id].nights)/S.n:rooms()*(price*nightFactor(nights)+fee*nights)*(1+TAX)/S.n; return base+extraPP(nights,id); };
+const caddiePP=g=>{const gx=GX[g.n]; if(!gx.cad) return 0; if(gx.cadInc) return gx.cad; return Math.ceil(S.n/4)*gx.cad*4/S.n+CADTIP;}; // un forecaddie par groupe de 4
+const topgolfPP=()=>Math.ceil(S.n/6)*170/S.n+5; // 2 h de baie à ~85 $/h, 6 par baie, adhésion 5 $
+// options de soirée (PM). cost = par joueur, en plus des repas et sorties déjà comptés
+const PMO={
+ arrival:{t:'Arrivée, piscine',s:'repérage du Strip',k:'free',cost:0},
+ pool:{t:'Piscine, Strip',s:'rien d\'imposé',k:'free',cost:0},
+ henderson:{t:'Brasseries de Henderson',s:'CraftHaus et Astronomy au retour du golf',k:'free',cost:25},
+ arts:{t:'Tournée Arts District',s:'3 brasseries, Uber aller-retour',k:'free',cost:65},
+ steak:{t:'Souper steakhouse',s:'supplément sur le souper déjà compté',k:'free',cost:70},
+ sphere:{t:'Spectacle immersif',s:'billet moyen, catégorie intermédiaire',k:'free',cost:110},
+ topgolf:{t:'Topgolf',s:'2 h de baie, dès 19 h',k:'top',cost:null},
+ show:{t:'A Perfect Circle',s:'BleauLive Theater, Fontainebleau',k:'show',fixed:true}
+};
+const DAYN={8:'mardi',9:'mercredi',10:'jeudi',11:'vendredi',12:'samedi'};
+const pmCost=key=>key==='topgolf'?topgolfPP():(PMO[key]?.cost||0);
+const hasTopgolf=ver=>Object.values(S.pm[ver]).includes('topgolf');
+function syncPlay(){S.play=new Set([...Object.values(S.slots[S.ver]).filter(Boolean),...S.extras]);}
+function slotOf(name){return Object.keys(S.slots[S.ver]).find(d=>S.slots[S.ver][d]===name);}
+function refreshCards(){
+  document.querySelectorAll('.sel.play').forEach(b=>{const on=S.play.has(b.dataset.g); b.setAttribute('aria-pressed',on); b.textContent=on?'Au programme':'Ajouter cette ronde'; b.closest('.card').classList.toggle('chosen',on); const tg=b.closest('.card').querySelector('h3 .tag.pick'); if(tg){const d=slotOf(b.dataset.g); tg.style.display=on?'':'none'; tg.textContent=d?DAYN[d]:'ronde ajoutée';}});
+  document.querySelectorAll('.sel.cad').forEach(b=>b.setAttribute('aria-pressed',S.cad.has(b.dataset.g)));
+}
+function mealCount(nights){return {dej:nights,din:nights+1,sou:nights};}
+function mealsCost(nights,cookSet,bf){const mc=mealCount(nights);let t=0;for(const k in MEALS){t+=mc[k]*(k==='dej'&&bf?0:(cookSet.has(k)?MEALS[k].c:MEALS[k].r));}return t;}
+// ===== transport : Uber vs location =====
+function transportPlan(ver,hotelId,playSet){
+  const nights=ver==='long'?4:3; const hx=HX[hotelId]; const h=H.find(x=>x.id===hotelId);
+  const trips=[]; // {label, km, uber(par pers.), gasKm, note}
+  const kmAir=kmBetween(hx.ll,LL.airport);
+  const airCars=Math.ceil(S.n/2); trips.push({label:'Aéroport, aller et retour',km:kmAir*2,uber:2*uberX(kmAir)*airCars/S.n,note:airCars+' Uber X par trajet, 2 golfeurs et leurs sacs par voiture'});
+  G.forEach(g=>{ if(!playSet.has(g.n)) return; const gx=GX[g.n]; const km=kmBetween(hx.ll,LL[g.n]);
+    if(hx.cz&&gx.trz===0&&S.shuttle){trips.push({label:g.n+', aller et retour',km:km*2,uber:0,gasKm:0,note:'navette Caesars incluse'});return;}
+    if(gx.tr===0){trips.push({label:g.n,km:0,uber:0,note:g.n==='Wynn Golf Club'?'à pied depuis le Strip':'limousine incluse'});return;}
+    if(km>80){trips.push({label:g.n+', aller et retour',km:km*2,uber:Math.round(vehicles()*(RENT.day+km*2*RENT.gas)/S.n),note:'Uber irréaliste à '+Math.round(km)+' km : location d\'une journée, compté ici',far:true});return;}
+    trips.push({label:g.n+', aller et retour',km:km*2,uber:2*uberXL(km)*vehicles()/S.n,note:vehicles()+' Uber XL (4 sacs par voiture), '+Math.round(km)+' km'}); });
+  Object.keys(S.pm[ver]).forEach(dd=>{ if(S.pm[ver][dd]!=='topgolf') return; const km=kmBetween(hx.ll,LL.topgolf);trips.push({label:`Topgolf ${DAYN[dd]}, aller et retour`,km:km*2,uber:2*uberX(km)*vehicles()/S.n,note:vehicles()+' Uber X, '+Math.round(km)+' km'});});
+  const kmFb=kmBetween(hx.ll,LL.fontainebleau); const walk=h.walk<=15;
+  trips.push({label:'A Perfect Circle, aller et retour',km:walk?0:kmFb*2,uber:walk?0:2*uberX(kmFb)*vehicles()/S.n,note:walk?'à pied, '+h.walk+' min':vehicles()+' Uber X, '+h.walk+' min à pied sinon'});
+  const uberTotal=trips.reduce((a,t)=>a+t.uber,0);
+  const kmTotal=trips.reduce((a,t)=>a+(t.km||0),0)+nights*10; // 10 km/jour de déplacements divers
+  const rentDays=nights, nv=vehicles(); const rentPP=nv*(RENT.day*rentDays+hx.park*nights+kmTotal*RENT.gas)/S.n;
+  const rentLines=[{label:`${nv} VUS intermédiaire${nv>1?'s':''}, ${rentDays} jours`,v:nv*RENT.day*rentDays/S.n,note:'85 $ par jour tout inclus, 4 golfeurs et 4 sacs par VUS'},{label:`Stationnement à l'hôtel, ${nights} nuits`,v:nv*hx.park*nights/S.n,note:hx.park?hx.park+' $ par nuit par véhicule':'gratuit'},{label:`Essence, ~${Math.round(kmTotal)} km par véhicule`,v:nv*kmTotal*RENT.gas/S.n,note:'0,13 $ par km, incluant les détours'}];
+  return {trips,uberTotal,rentPP,rentLines,kmTotal};
+}
+function calc(dry){
+  const nights=S.ver==='long'?4:3, days=nights+1;
+  const h=H.find(x=>x.id===S.hotel), hx=HX[S.hotel];
+  const room=hRate(h), rPP=roomPP(room,hx.fee,nights,h.id);
+  // rows : {l:libellé, n:note, v:par personne, kids:[{l,v}]} — r[2] reste le montant par personne pour les sommes
+  const rows=[];
+  const R=(l,n,v,kids)=>{const r=[l,n,v]; r.n=n; r.kids=kids||[]; rows.push(r); return r;};
+  R(h.n,S.ht[h.id]?`${rooms()} ch., votre total de ${S.ht[h.id].v} $ CA par chambre pour ${S.ht[h.id].nights} nuits${S.ht[h.id].nights!==nights?', ramené à '+nights+' nuits':''}, taxes et frais inclus, converti à ${S.fx.toFixed(2)}, ${S.occ} par chambre${S.occ>2&&S.supp&&!hx.noSupp?', supplément '+S.supp+' $ par nuit par occupant au-delà de 2':(S.occ>2&&hx.noSupp?', sans supplément, suite prévue pour 4':'')}`:`${rooms()} ch. × ${nights} nuits à ~${room} $ (vendredi ×${S.fri})${hx.fee?' + '+hx.fee+' $ de frais':''}, taxe ${Math.round(TAX*100)} %, ${S.occ} par chambre${S.occ>2&&S.supp?', supplément '+S.supp+' $ par nuit par occupant au-delà de 2':''}`,rPP);
+  const tp=transportPlan(S.ver,S.hotel,S.play); const nv=vehicles();
+  const tripOf=prefix=>tp.trips.find(t=>t.label.startsWith(prefix));
+  const tripCost=t=>!t?0:(S.car?nv*(t.km||0)*RENT.gas/S.n:t.uber);
+  const tripLabel=t=>{if(!t) return 'Transport'; if(S.car) return t.km?'Essence':t.note; if(t.uber===0) return t.note; if(t.far) return 'Location d\'une journée (Uber irréaliste)'; return t.note;};
+  // chaque ronde avec ses coûts connexes
+  G.forEach(g=>{ if(!S.play.has(g.n)) return; const gx=GX[g.n]; const t=tripOf(g.n);
+    const kids=[{l:S.gp[g.n]!=null?'Droit de jeu, votre tarif':'Droit de jeu, tarif d\'été estimé',v:gRate(g)},{l:tripLabel(t),v:tripCost(t)}];
+    if(gx.cadInc||S.cad.has(g.n)) kids.push({l:gx.cadInc?'Caddie obligatoire : pourboire':'Forecaddie et pourboire',v:caddiePP(g)});
+    const sd=slotOf(g.n); R(g.n,sd?`${DAYN[sd]} matin, départ ${g.n==='Bali Hai'?'7 h':'6 h 30'}`:'ronde ajoutée hors horaire',kids.reduce((a,k)=>a+k.v,0),kids); });
+  if(!S.play.size) R('Golf','aucune ronde choisie',0);
+  // soirées choisies dans l'horaire
+  { const kids=[]; Object.keys(S.pm[S.ver]).forEach(d=>{const key=S.pm[S.ver][d]; if(!key||key==='show') return; const c=pmCost(key); if(key==='topgolf'){const t=tripOf(`Topgolf ${DAYN[d]}`); kids.push({l:`${DAYN[d]} : Topgolf, ${Math.ceil(S.n/6)} baie${S.n>6?'s':''} 2 h`,v:c}); kids.push({l:`${DAYN[d]} : ${tripLabel(t)} Topgolf`,v:tripCost(t)});} else if(c) kids.push({l:`${DAYN[d]} : ${PMO[key].t}`,v:c});});
+    if(kids.length) R('Soirées',`${kids.length} ligne${kids.length>1?'s':''}, en plus des repas et sorties`,kids.reduce((a,k)=>a+k.v,0),kids); }
+  { const t=tripOf('A Perfect Circle'); const kids=[{l:'Billet, frais de billetterie inclus',v:S.ticket},{l:tripLabel(t),v:tripCost(t)}]; R('A Perfect Circle','BleauLive Theater, vendredi soir',kids.reduce((a,k)=>a+k.v,0),kids); }
+  { const t=tripOf('Aéroport'); R('Aéroport, aller et retour',S.car?'avec le véhicule de location':t.note,tripCost(t)); }
+  if(S.car){ const misc=nv*nights*10*RENT.gas/S.n; const kids=[{l:tp.rentLines[0].label,v:tp.rentLines[0].v},{l:tp.rentLines[1].label,v:tp.rentLines[1].v},{l:'Essence, déplacements divers',v:misc}]; R('Véhicule de location',`${nv} VUS, ${nights} jours; l\'essence des trajets est dans chaque poste`,kids.reduce((a,k)=>a+k.v,0),kids); }
+  if(!dry){renderTransport(tp); renderBrews();}
+  // repas
+  if(!h.k) S.cook.clear();
+  const bf=!!hx.bf; const mc=mealCount(nights); const allResto=mealsCost(nights,new Set(),bf); const mine=mealsCost(nights,S.cook,bf);
+  const mealKids=Object.keys(MEALS).map(k=>({l:`${mc[k]} ${MEALS[k].n.toLowerCase()} ${k==='dej'&&bf?'inclus à l\'hôtel':S.cook.has(k)?'cuisinés':'au resto'}`,v:mc[k]*(k==='dej'&&bf?0:(S.cook.has(k)?MEALS[k].c:MEALS[k].r))}));
+  const mealDesc=mealKids.map(k=>k.l).join(', ');
+  R('Repas',`${days} jours${mine<allResto?' — '+fmt(allResto-mine)+' d\'économie par joueur grâce à la cuisinette':''}${h.k&&mine>=allResto?' — cuisinette disponible, touchez un repas dans les options':''}`,mine,mealKids);
+  R(`Bières et sorties`,`${days} jours à ${S.out} $`,S.out*days);
+  const sub=rows.reduce((a,r)=>a+r[2],0); if(S.cont) R(`Imprévus et pourboires divers, ${S.cont} %`,'valet, femme de chambre, balles perdues, taxi de trop',sub*S.cont/100);
+  const total=rows.reduce((a,r)=>a+r[2],0);
+  if(dry) return total;
+  // comparatif dynamique des deux versions
+  const totalFor=ver=>{if(ver===S.ver) return total; const keep=S.ver; S.ver=ver; syncPlay(); const t=calc(true); S.ver=keep; syncPlay(); return t;};
+  const tl=totalFor('long'), ts=totalFor('short');
+  const dl=document.getElementById('delta'); dl.className='delta on';
+  const diff=tl-ts;
+  const other=S.ver==='short'?'long':'short'; const oslots=Object.values(S.slots[other]).filter(Boolean).length; const opm=Object.keys(S.pm[other]).filter(d=>S.pm[other][d]&&S.pm[other][d]!=='show'&&pmCost(S.pm[other][d])>0).map(d=>PMO[S.pm[other][d]].t);
+  dl.innerHTML=(S.ver==='short'
+    ?[['−'+fmt(diff),'par personne par rapport à 4 nuits'],['−'+fmt(diff*S.n),`pour le groupe de ${S.n}`],['−1 nuit',`${h.n.split(' — ')[0]}, ${fmt(roomPP(room,hx.fee,1,h.id))} par pers.`],[`${oslots} → ${Object.values(S.slots.short).filter(Boolean).length} rondes`,'selon l\'horaire de chaque version'],['Soirées',opm.length?'version 4 nuits : '+opm.join(', '):'version 4 nuits sans soirée payante']]
+    :[['+'+fmt(diff),'par personne par rapport à 3 nuits'],['+'+fmt(diff*S.n),`pour le groupe de ${S.n}`],['+1 nuit',`${h.n.split(' — ')[0]}, ${fmt(roomPP(room,hx.fee,1,h.id))} par pers.`],[`${Object.values(S.slots.long).filter(Boolean).length} rondes`,`contre ${oslots} en version courte`],['Soirées',opm.length?'version 3 nuits : '+opm.join(', '):'version 3 nuits sans soirée payante']]
+  ).map(([a,b])=>`<div><b>${a}</b><span>${b}</span></div>`).join('');
+  // chips cuisine
+  document.querySelectorAll('.chip.ck').forEach(b=>{b.disabled=!h.k;b.setAttribute('aria-pressed',S.cook.has(b.dataset.v));b.textContent=`${MEALS[b.dataset.v].n} · ${MEALS[b.dataset.v].r} $ → ${MEALS[b.dataset.v].c} $`;});
+  document.getElementById('cooklab').textContent=h.k?`Repas cuisinés à l'hôtel — ${h.n.split(' — ')[0]} a une cuisinette`:`Repas cuisinés à l'hôtel — ${h.n.split(' — ')[0]} n'a pas de cuisinette`;
+  const maxSave=allResto-mealsCost(nights,new Set(['dej','din','sou']),bf);
+  const semiSave=allResto-mealsCost(nights,new Set(['dej','din']),bf);
+  const kc=document.getElementById('kcmp');
+  if(h.k){
+    const save=allResto-mine;
+    kc.innerHTML=`<div class="big">${save>0?'Économie '+fmt(save)+' par personne':'Aucun repas cuisiné pour l\'instant'}<small>${save>0?fmt(save*S.n)+' pour '+S.n:'touchez un repas ci-dessus'}</small></div>
+      <div><span>Tout au restaurant</span><b>${fmt(allResto)}</b></div><div><span>Votre mélange</span><b>${fmt(mine)}</b></div>
+      <div><span>Déjeuners et dîners cuisinés</span><b>${fmt(semiSave)} d'économie</b></div><div><span>Les trois repas cuisinés</span><b>${fmt(maxSave)} d'économie</b></div>`;
+  } else {
+    kc.innerHTML=`<div class="big">Sans cuisinette : ${fmt(allResto)} de repas<small>par personne, tout au restaurant</small></div>
+      <div><span>Un hôtel avec cuisinette, déjeuners et dîners cuisinés</span><b>jusqu'à −${fmt(semiSave)}</b></div><div><span>Les trois repas cuisinés</span><b>jusqu'à −${fmt(maxSave)}</b></div>`;
+  }
+  // lignes dynamiques sur les fiches
+  H.forEach(x=>{const el=document.querySelector(`.dyn[data-hd="${x.id}"]`); const pp=roomPP(hRate(x),HX[x.id].fee,nights,x.id); const k=HX[x.id].bf?' · déjeuners inclus':''; const cookX=x.k?(x.id===S.hotel?S.cook:new Set(['dej','din'])):new Set(); const mealsX=mealsCost(nights,cookX,!!HX[x.id].bf); const lbl=x.k?(cookX.size?[...cookX].map(c=>MEALS[c].n.toLowerCase()).join(' et ')+' cuisinés':'rien de cuisiné'):'tout au resto';
+    el.innerHTML=`${rooms()} ch. × ${nights} nuits pour ${S.n} joueurs : <em>${fmt(pp)} US (${fmtCA(pp)}) par joueur</em>, ${S.ht[x.id]?'selon votre total trouvé':'frais et taxe inclus'}<br>Hébergement + repas : <em>${fmt(pp+mealsX)} US (${fmtCA(pp+mealsX)})</em>, ${lbl}${k}`;});
+  const allPlan=transportPlan(S.ver,S.hotel,new Set(G.map(g=>g.n)));
+  G.forEach(g=>{const el=document.querySelector(`.dyn[data-gd="${g.n}"]`); const gx=GX[g.n]; const tr=allPlan.trips.find(t=>t.label.startsWith(g.n))||{uber:0,km:0,note:''};
+    const t=S.car?Math.round(vehicles()*tr.km*RENT.gas/S.n):Math.round(tr.uber); const c=(gx.cadInc||S.cad.has(g.n))?Math.round(caddiePP(g)):0;
+    const tTxt=tr.uber===0&&!tr.far?' + '+tr.note:(S.car?' + essence '+fmt(t):(tr.far?' + location 1 jour '+fmt(t):' + Uber XL '+fmt(t)));
+    el.innerHTML=`${S.play.has(g.n)?'Au programme : ':'Si ajoutée : '}${fmt(gRate(g)+t+c)} par pers. <span style="color:var(--ink-2);font-weight:500">(ronde ${fmt(gRate(g))}${tTxt}${c?' + caddie '+fmt(c):''})</span>`;});
+  // hôtel choisi et inclusions, au-dessus de l'horaire
+  document.getElementById('selhotel').innerHTML=`<span class="sk">Hôtel choisi</span><span class="sn">${ico('bed')}${h.n}</span><span class="sp">${fmt(rPP)} US<span>${fmtCA(rPP)} par joueur, ${nights} nuits, ${rooms()} ch. à ${S.occ}${S.ht[h.id]?', selon votre total trouvé':', taxes et frais inclus'}</span></span><span class="sd">${h.strip} · Fontainebleau à ${h.walk===0?'zéro minute':h.walk+' min à pied'} · cuisinette : ${h.k?'oui':'non'}${hx.cz?' · navette Caesars':''}${hx.bf?' · déjeuner inclus':''}</span><a href="#hotels">${ico('swap')}Changer d'hôtel ↓</a>`;
+  const rowIco=l=>/^Aéroport/.test(l)?'plane':/^Véhicule|^Uber/.test(l)?'car':/^Repas/.test(l)?'fork':/^Bières/.test(l)?'beer':/^Soirées/.test(l)?'sun':/^A Perfect/.test(l)?'music':/^Imprévus/.test(l)?'dollar':'golf';
+  const inclRows=rows.filter(r=>r[0]!==h.n).map(r=>`<li><span>${ico(rowIco(r[0]))}${r[0]}${r.kids.length&&!/^Repas|^Véhicule/.test(r[0])?' <small style="color:var(--ink-2)">'+r.kids.map(k=>k.l.split(',')[0]).join(' + ')+'</small>':''}</span><b>${fmt(r[2])}</b></li>`).join('');
+  document.getElementById('incl').innerHTML=`<div class="ik">Ce qui est inclus dans le total, par joueur</div><ul><li><span>${ico('bed')}${h.n} <small style="color:var(--ink-2)">${nights} nuits, ${rooms()} ch.</small></span><b>${fmt(rPP)}</b></li>${inclRows}<li class="tot"><span>Total hors vol</span><b>${fmt(total)} US · ${fmtCA(total*(1+S.fxFee))}</b></li></ul>`;
+  document.getElementById('tot').textContent=fmt(total);
+  const cad=total*S.fx*(1+S.fxFee); document.getElementById('totcad').textContent=`≈ ${Math.round(cad).toLocaleString('fr-CA')} $ CA`;
+  document.getElementById('grptot').textContent=fmt(total*S.n)+' pour '+S.n;
+  document.getElementById('grpsub').textContent=`${S.n} joueurs, ${rooms()} ch. · ${nights} nuits · ${S.play.size} ronde${S.play.size>1?'s':''}${hasTopgolf(S.ver)?' + Topgolf':''} · ${h.n.split(' — ')[0]}`;
+  document.getElementById('gsum').innerHTML=`<em>${S.n} joueurs</em> · <em>${rooms()} chambre${rooms()>1?'s':''}</em> à ${S.occ} par chambre${S.n%S.occ?' (la dernière à '+(S.n%S.occ)+')':''} · ${h.n.split(' — ')[0]} revient à <em>${fmt(rPP)} US (${fmtCA(rPP)}) par joueur pour le séjour</em>, frais et taxe inclus${S.occ>2?(hx.noSupp?' — suite prévue pour 4, sans supplément':' — les tarifs affichés sont pour 2 personnes, supplément de '+S.supp+' $ par nuit par occupant de plus'):''}`;
+  document.getElementById('roomsum').textContent=`${rooms()} chambre${rooms()>1?'s':''} pour ${S.n} joueurs${S.n%S.occ?' (la dernière est moins remplie)':''}${S.occ>2?' — vérifiez que l\'hôtel accepte '+S.occ+' adultes par chambre':''}`;
+  document.getElementById('totlab').textContent=document.getElementById('cost').classList.contains('on')?'Touchez pour refermer':'Touchez pour le détail et les options';
+  const fmtG=v=>fmt(v*S.n);
+  document.getElementById('bd').innerHTML=`<tr class="hd"><td>Poste</td><td>par pers.</td><td>pour ${S.n}</td></tr>`+rows.map(r=>`<tr class="${r.kids.length?'par':''}"><td>${ico(r[0]===h.n?'bed':rowIco(r[0]))}${r[0]}<span>${r[1]}</span></td><td>${fmt(r[2])}</td><td>${fmtG(r[2])}</td></tr>`+r.kids.map(k=>`<tr class="kid"><td>${k.l}</td><td>${fmt(k.v)}</td><td>${fmtG(k.v)}</td></tr>`).join('')).join('')+`<tr class="sum"><td>Total, hors vol<span>en dollars américains</span></td><td>${fmt(total)}</td><td>${fmtG(total)}</td></tr><tr class="sum cad"><td>En dollars canadiens<span>taux ${S.fx.toFixed(2)} + ${(S.fxFee*100).toFixed(1)} % de frais de conversion</span></td><td>${Math.round(total*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td><td>${Math.round(total*S.n*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td></tr>`;
+  return total;
+}
+// hotel select
+document.querySelectorAll('.sel[data-h]').forEach(b=>b.addEventListener('click',()=>{
+  S.hotel=b.dataset.h; const hk=H.find(x=>x.id===S.hotel).k; if(hk&&!S.cookTouched){S.cook=new Set(['dej','din']);} if(!hk) S.cook.clear();
+  document.querySelectorAll('.sel[data-h]').forEach(x=>{const on=x.dataset.h===S.hotel;x.setAttribute('aria-pressed',on);x.textContent=on?'Hôtel choisi':'Choisir cet hôtel';x.closest('.card').classList.toggle('chosen',on);});
+  hp.querySelectorAll('.pin circle').forEach(c=>c.setAttribute('r',7)); const pin=hp.querySelector(`[data-id="${S.hotel}"] circle`); if(pin) pin.setAttribute('r',10);
+  calc();
+}));
+document.querySelector('.card[data-id="strat"]').classList.add('chosen');
+// golf select
+document.querySelectorAll('.sel.play').forEach(b=>b.addEventListener('click',()=>{
+  const n=b.dataset.g; if(S.play.has(n)){S.extras.delete(n); const d=slotOf(n); if(d) S.slots[S.ver][d]=null; S.cad.delete(n);} else S.extras.add(n);
+  syncPlay(); refreshCards(); renderDays(S.ver); calc();
+}));
+document.querySelectorAll('.sel.cad').forEach(b=>b.addEventListener('click',()=>{
+  const n=b.dataset.g; if(S.cad.has(n)) S.cad.delete(n); else {S.cad.add(n); if(!S.play.has(n)){S.extras.add(n); syncPlay(); renderDays(S.ver);}}
+  refreshCards(); calc();
+}));
+// version → nights, Bali Hai, Topgolf
+document.querySelectorAll('.chip.v').forEach(b=>b.addEventListener('click',()=>{
+  S.ver=b.dataset.v; syncPlay(); refreshCards(); calc();
+}));
+['nchips','nchips-hero'].forEach(id=>document.getElementById(id).innerHTML=[2,3,4,5,6,7,8].map(n=>`<button class="chip nn" data-v="${n}" aria-pressed="${n===4}">${n}</button>`).join(''));
+['occhips','occhips-hero'].forEach(id=>document.getElementById(id).innerHTML=[1,2,3,4].map(n=>`<button class="chip oc" data-v="${n}" aria-pressed="${n===2}">${n}</button>`).join(''));
+document.querySelectorAll('.chip.nn').forEach(b=>b.addEventListener('click',()=>{S.n=+b.dataset.v;document.querySelectorAll('.chip.nn').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.v===S.n));calc();}));
+document.querySelectorAll('.chip.oc').forEach(b=>b.addEventListener('click',()=>{S.occ=+b.dataset.v;document.querySelectorAll('.chip.oc').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.v===S.occ));calc();}));
+document.querySelectorAll('.chip.ou').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip.ou').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.out=+b.dataset.v;calc();}));
+document.querySelectorAll('.chip.ck').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.v; S.cookTouched=true; if(S.cook.has(k)) S.cook.delete(k); else S.cook.add(k); calc();}));
+document.getElementById('ticket').addEventListener('input',e=>{S.ticket=+e.target.value||0;calc();});
+document.querySelectorAll('input.hp').forEach(i=>i.addEventListener('input',e=>{const v=e.target.value; if(v==='') delete S.hp[e.target.dataset.h]; else S.hp[e.target.dataset.h]=+v; calc();}));
+document.querySelectorAll('input.ht').forEach(i=>{if(S.ht[i.dataset.h]) i.value=S.ht[i.dataset.h].v;});
+document.querySelectorAll('input.ht').forEach(i=>i.addEventListener('input',e=>{const v=e.target.value; if(v==='') delete S.ht[e.target.dataset.h]; else S.ht[e.target.dataset.h]={v:+v,nights:S.ver==='long'?4:3}; calc();}));
+document.querySelectorAll('input.gp').forEach(i=>i.addEventListener('input',e=>{const v=e.target.value; if(v==='') delete S.gp[e.target.dataset.g]; else S.gp[e.target.dataset.g]=+v; calc();}));
+document.querySelectorAll('.chip.sp').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip.sp').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.supp=+b.dataset.v;calc();}));
+document.querySelectorAll('.chip.fr').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip.fr').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.fri=+b.dataset.v;calc();}));
+document.getElementById('fx').addEventListener('input',e=>{S.fx=+e.target.value||1.37;calc();});
+document.querySelectorAll('.chip.ct').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip.ct').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.cont=+b.dataset.v;calc();}));
+const cb=document.getElementById('costbar');
+function toggleCost(){const c=document.getElementById('cost');c.classList.toggle('on');cb.setAttribute('aria-expanded',c.classList.contains('on'));calc();}
+cb.addEventListener('click',toggleCost); cb.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleCost();}});
+syncPlay(); refreshCards(); renderDays(S.ver); calc();
+
+// section transport
+function renderTransport(tp){
+  const nights=S.ver==='long'?4:3;
+  document.getElementById('t-uber').innerHTML=`<b>${fmt(tp.uberTotal)}</b><span>par personne, ${tp.trips.filter(t=>t.uber>0).length} trajets</span>`;
+  document.getElementById('t-rent').innerHTML=`<b>${fmt(tp.rentPP)}</b><span>par personne : véhicule ${fmt(tp.rentLines[0].v)} + stationnement ${fmt(tp.rentLines[1].v)} + essence ${fmt(tp.rentLines[2].v)}</span>`;
+  document.getElementById('t-uber').innerHTML=`<b>${fmt(tp.uberTotal)}</b><span>par personne : ${tp.trips.filter(t=>t.uber>0).map(t=>t.label.split(',')[0]+' '+fmt(t.uber)).join(' + ')||'tout est inclus ou à pied'}</span>`;
+  document.getElementById('b-uber').setAttribute('aria-pressed',!S.car); document.getElementById('b-rent').setAttribute('aria-pressed',S.car);
+  const diff=tp.uberTotal-tp.rentPP;
+  document.getElementById('t-verdict').textContent=Math.abs(diff)<15?'Les deux options se valent à 15 $ près : choisissez selon la liberté voulue.':diff>0?`Uber coûte ${fmt(diff)} de plus par personne que la location avec vos choix actuels.`:`Uber économise ${fmt(-diff)} par personne par rapport à la location avec vos choix actuels.`;
+  const far=tp.trips.some(t=>t.far);
+  document.getElementById('t-far').style.display=far?'':'none';
+  const rows=S.car?tp.rentLines.map(l=>`<tr><td>${l.label}<span>${l.note}</span></td><td>${fmt(l.v)}</td></tr>`):tp.trips.map(t=>`<tr><td>${t.label}<span>${t.note}</span></td><td>${t.uber?fmt(t.uber):'0 $'}</td></tr>`);
+  document.getElementById('t-table').innerHTML=rows.join('')+`<tr class="sum"><td>Transport, par personne</td><td>${fmt(S.car?tp.rentPP:tp.uberTotal)}</td></tr>`;
+}
+document.getElementById('b-uber').addEventListener('click',()=>{S.car=false;calc();});
+document.getElementById('b-rent').addEventListener('click',()=>{S.car=true;calc();});
+document.getElementById('shuttle').addEventListener('click',e=>{S.shuttle=!S.shuttle;e.currentTarget.setAttribute('aria-pressed',S.shuttle);calc();});
+
+// couverture en deux pages : glisser vers la droite, cliquer, ou touche Entrée
+(function(){
+  const c=document.getElementById('cover'); if(!c) return;
+  const p1=document.getElementById('pane1'), p2=document.getElementById('pane2');
+  let step=1, seen=false; try{seen=sessionStorage.getItem('cover-seen')==='1';}catch(e){}
+  if(seen){c.classList.add('hidden');return;}
+  const cur=()=>step===1?p1:p2;
+  const next=()=>{ const el=cur(); el.style.transition='';
+    requestAnimationFrame(()=>{ el.style.transform='';
+    if(step===1){ p2.hidden=false; p2.classList.add('in'); p1.classList.add('out'); step=2; setTimeout(()=>{p1.hidden=true;},500); }
+    else { p2.classList.add('out'); c.classList.add('gone'); try{sessionStorage.setItem('cover-seen','1');}catch(e){} setTimeout(()=>c.classList.add('hidden'),500); document.getElementById('plan').focus?.(); } }); };
+  document.querySelectorAll('.cv-swipe').forEach(b=>b.addEventListener('click',next));
+  let x0=null,dx=0;
+  c.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;dx=0;cur().style.transition='none';},{passive:true});
+  c.addEventListener('touchmove',e=>{if(x0===null) return; dx=e.touches[0].clientX-x0; if(dx>0) cur().style.transform=`translateX(${dx}px)`;},{passive:true});
+  c.addEventListener('touchend',()=>{const el=cur(); el.style.transition=''; if(dx>90) next(); else el.style.transform=''; x0=null;});
+  let mx=null; c.addEventListener('mousedown',e=>{if(e.target.closest('button')) return; mx=e.clientX;cur().style.transition='none';});
+  window.addEventListener('mousemove',e=>{if(mx===null) return; const d=e.clientX-mx; if(d>0) cur().style.transform=`translateX(${d}px)`;});
+  window.addEventListener('mouseup',e=>{if(mx===null) return; const d=e.clientX-mx; mx=null; const el=cur(); el.style.transition=''; if(d>120) next(); else el.style.transform='';});
+  window.addEventListener('keydown',e=>{if(c.classList.contains('hidden')) return; if(e.key==='ArrowRight'||e.key==='Enter'||e.key===' '){e.preventDefault();next();}});
+})();
+
+// feuille de remplacement d'un créneau
+function openSheet(day,half){
+  const sh=document.getElementById('sheet'), list=document.getElementById('sheet-list'), ttl=document.getElementById('sheet-title');
+  const cur=calc(true); const opts=[];
+  const dayV=V[S.ver].find(x=>x.d===day);
+  const dryWith=mut=>{const snapS=JSON.stringify({slots:S.slots,pm:S.pm}); const ex=new Set(S.extras); mut(); syncPlay(); const t=calc(true); const o=JSON.parse(snapS); S.slots=o.slots; S.pm=o.pm; S.extras=ex; syncPlay(); return t;};
+  if(half==='AM'&&!(dayV.am&&dayV.am.k==='travel')){
+    ttl.textContent=`${DAYN[day]} matin — remplacer la ronde`;
+    const curG=S.slots[S.ver][day];
+    const used=new Set(Object.values(S.slots[S.ver]).filter(Boolean));
+    opts.push({key:null,ic:'sun',t:'Matin libre',s:'piscine, grasse matinée',cur:!curG,delta:dryWith(()=>{S.slots[S.ver][day]=null;})-cur});
+    G.forEach(g=>{ if(used.has(g.n)&&g.n!==curG) return; const gx=GX[g.n];
+      opts.push({key:g.n,t:g.n,s:`${g.w} · ${g.min===0?'sur le Strip':g.min+' min'} · ${g.p}${gx.cadInc?' · caddie obligatoire':''}`,tier:g.t,cur:g.n===curG,delta:g.n===curG?0:dryWith(()=>{S.slots[S.ver][day]=g.n;})-cur}); });
+    list.innerHTML=opts.map(o=>opt(o)).join('');
+    list.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{const o=opts[i]; S.slots[S.ver][day]=o.key; if(o.key) S.extras.delete(o.key); syncPlay(); refreshCards(); renderDays(S.ver); calc(); closeSheet();}));
+  } else if(half==='PM'&&dayV.pm!==null){
+    const curK=S.pm[S.ver][day];
+    if(curK==='show'){ttl.textContent=`${DAYN[day]} soir`; list.innerHTML=`<p class="sheet-fixed">A Perfect Circle au BleauLive Theater — c'est le point fixe du voyage. Rien à remplacer ici.</p>`;}
+    else {
+      ttl.textContent=`${DAYN[day]} soir — choisir la soirée`;
+      Object.keys(PMO).forEach(k=>{ if(k==='show'||(k==='arrival'&&curK!=='arrival')) return;
+        opts.push({key:k,ic:KI[PMO[k].k],t:PMO[k].t,s:PMO[k].s,cur:k===curK,delta:k===curK?0:dryWith(()=>{S.pm[S.ver][day]=k;})-cur}); });
+      list.innerHTML=opts.map(o=>opt(o)).join('');
+      list.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{S.pm[S.ver][day]=opts[i].key; renderDays(S.ver); calc(); closeSheet();}));
+    }
+  } else { ttl.textContent=`${DAYN[day]}`; list.innerHTML=`<p class="sheet-fixed">Vol Air Canada fixé. Pour changer les dates, utilisez le choix de version en haut de page.</p>`; }
+  sh.hidden=false; document.body.classList.add('sheet-open'); sh.querySelector('button').focus();
+}
+function opt(o){const d=Math.round(o.delta); const cls=o.cur?'cur':d>0?'up':d<0?'down':'same'; const lbl=o.cur?'actuel':d>0?'+'+fmt(d):d<0?'−'+fmt(-d):'même prix';
+  return `<button type="button" class="sopt ${cls}" ${o.cur?'aria-current="true"':''}><span class="so-t">${ico(o.ic||'golf')}${o.t}</span><span class="so-s">${o.s}</span><span class="so-d">${lbl}<small>${o.cur?'':'par joueur'}</small></span></button>`;}
+function closeSheet(){document.getElementById('sheet').hidden=true; document.body.classList.remove('sheet-open');}
+document.getElementById('sheet-close').addEventListener('click',closeSheet);
+document.getElementById('sheet').addEventListener('click',e=>{if(e.target.id==='sheet') closeSheet();});
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('sheet').hidden) closeSheet();});
+
+// pin → card
+function go(id){
+  const card=document.querySelector(`#hotelcards .card[data-id="${id}"]`);
+  const sec=id==='topgolf'?document.getElementById('topgolf'):(id==='ellis'||id==='sincity'||id==='brewdog'?document.getElementById('brew'):null);
+  document.querySelectorAll('.card.hot,.pin.hot').forEach(x=>x.classList.remove('hot'));
+  if(card){card.classList.remove('hide');card.classList.add('hot');card.scrollIntoView({block:'center'});}
+  else if(sec){sec.scrollIntoView({block:'start'});}
+  const pin=document.querySelector(`.pin[data-id="${id}"]`); if(pin) pin.classList.add('hot');
+}
+document.querySelectorAll('.pin').forEach(p=>{p.addEventListener('click',()=>go(p.dataset.id));p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(p.dataset.id);}});});
+</script>
+</body>
+</html>
