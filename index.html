@@ -183,7 +183,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tab[aria-pressed="true"]{opacity:1;border-bottom-color:var(--dawn)}
 .tab:focus-visible{outline:3px solid var(--dawn);outline-offset:-3px}
 @media (min-width:700px){.tab{grid-auto-flow:column;align-items:center;gap:8px;font-size:17px;padding:12px}}
-[data-tab]:not(.on){display:none}
+[data-tab]:not(.tab):not(.on){display:none}
 /* sections */
 section{padding:34px 0 10px}
 .lead{font-size:17px;color:var(--ink-2);margin:8px 0 18px;max-width:40em}
