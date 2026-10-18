@@ -142,6 +142,48 @@ body.sheet-open{overflow:hidden}
 .sopt.cur{border-color:var(--ink);background:var(--sand-2)}.sopt.cur .so-d{color:var(--ink-2);font-size:15px}
 .sopt:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
 .sheet-fixed{font-size:15px;color:var(--ink-2);padding:6px 0 10px}
+/* quand réserver */
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 10px}
+@media (max-width:520px){.cd{grid-template-columns:repeat(2,1fr)}}
+.cd div{background:var(--ink);color:var(--sand);padding:10px 8px;text-align:center}
+.cd b{display:block;font-family:var(--font-d);font-size:40px;font-weight:700;line-height:1}
+.cd span{font-size:12px;opacity:.8;text-transform:uppercase;letter-spacing:.1em}
+.tl{display:grid;gap:10px;margin-bottom:26px}
+.ms{display:grid;grid-template-columns:110px 1fr;gap:4px 14px;background:var(--card);border:2px solid var(--line);border-left:8px solid var(--line);padding:12px 14px}
+@media (max-width:520px){.ms{grid-template-columns:1fr}}
+.ms.now{border-color:var(--dawn);border-left-color:var(--dawn)}
+.ms.past{opacity:.6}
+.ms.soon{border-left-color:var(--fairway)}
+.ms .when{font-family:var(--font-d);font-size:17px;font-weight:700;line-height:1.15}
+.ms .when span{display:block;font-size:12px;font-weight:500;color:var(--ink-2);font-family:var(--font-b)}
+.ms .st{display:inline-block;font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-top:4px;background:var(--line);color:var(--ink)}
+.ms.now .st{background:var(--dawn);color:#fff}.ms.soon .st{background:var(--fairway);color:#fff}
+.ms h3{font-size:20px}
+.ms p{font-size:14px;color:var(--ink-2);margin-top:2px}
+.ms .act{font-size:14px;margin-top:6px}
+.ms .act b{font-family:var(--font-d);font-weight:600}
+.ms .save{font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--fairway);margin-top:4px}
+.bh{font-size:26px;margin-top:8px}
+.sharp{display:grid;gap:8px;margin-bottom:10px}
+.sh{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:var(--card);border:2px solid var(--line);padding:10px 12px;cursor:pointer}
+.sh.flight{grid-template-columns:1fr auto;cursor:default}
+.sh input[type=checkbox]{width:22px;height:22px;accent-color:var(--fairway)}
+.sh b{font-family:var(--font-d);font-size:18px;font-weight:600;display:block;line-height:1.1}
+.sh small{display:block;font-size:12px;color:var(--ink-2)}
+.sh em{font-style:normal;font-family:var(--font-d);font-size:19px;font-weight:700;color:var(--fairway);white-space:nowrap}
+.sh-tot{background:var(--ink);color:var(--sand);padding:12px 14px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.sh-tot b{font-family:var(--font-d);font-size:32px;font-weight:700;line-height:1}
+.sh-tot span{font-size:13px;opacity:.85}
+.sh-tot .r{text-align:right}
+/* onglets */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:grid;grid-template-columns:repeat(6,1fr);background:var(--ink);border-bottom:3px solid var(--dawn)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--ink)}
+.tab{background:transparent;border:0;color:var(--sand);opacity:.65;padding:9px 4px 8px;display:grid;justify-items:center;gap:2px;cursor:pointer;font-family:var(--font-d);font-size:13px;font-weight:600;letter-spacing:.02em;border-bottom:3px solid transparent;margin-bottom:-3px}
+.tab .ico{width:20px;height:20px;margin:0}
+.tab[aria-pressed="true"]{opacity:1;border-bottom-color:var(--dawn)}
+.tab:focus-visible{outline:3px solid var(--dawn);outline-offset:-3px}
+@media (min-width:700px){.tab{grid-auto-flow:column;align-items:center;gap:8px;font-size:17px;padding:12px}}
+[data-tab]:not(.on){display:none}
 /* sections */
 section{padding:34px 0 10px}
 .lead{font-size:17px;color:var(--ink-2);margin:8px 0 18px;max-width:40em}
@@ -157,7 +199,7 @@ section{padding:34px 0 10px}
 
 /* map + list layout */
 .split{display:grid;grid-template-columns:1fr;gap:18px}
-@media (min-width:860px){.split{grid-template-columns:400px 1fr;align-items:start}.mapbox{position:sticky;top:12px}}
+@media (min-width:860px){.split{grid-template-columns:400px 1fr;align-items:start}.mapbox{position:sticky;top:calc(64px + env(safe-area-inset-top,0px))}}
 .mapbox{background:var(--card);border:2px solid var(--ink);padding:8px;overflow:hidden}
 .mapbox svg{width:100%;height:auto;display:block}
 .pin{cursor:pointer}
@@ -382,9 +424,17 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
  </div>
 </section>
 
-<header class="hero" id="plan" tabindex="-1"><div class="wrap">
+<nav class="tabs" id="tabs" aria-label="Sections">
+  <button type="button" class="tab" data-tab="plan" aria-pressed="true"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg><span>Plan</span></button>
+  <button type="button" class="tab" data-tab="hotels" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-bed"/></svg><span>Hôtels</span></button>
+  <button type="button" class="tab" data-tab="golf" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-golf"/></svg><span>Golf</span></button>
+  <button type="button" class="tab" data-tab="transport" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg><span>Transport</span></button>
+  <button type="button" class="tab" data-tab="brew" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-beer"/></svg><span>Bières</span></button>
+  <button type="button" class="tab" data-tab="quand" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-ticket"/></svg><span>Planif.</span></button>
+</nav>
+<header class="hero" id="plan" tabindex="-1" data-tab="plan"><div class="wrap">
   <h2 style="font-size:clamp(34px,8vw,60px);font-weight:700"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Le plan, jour par jour</h2>
-  <p class="sub">Trois rondes au lever du jour, un spectacle au Fontainebleau, et le choix de l'hôtel qui va avec. Tarifs estimés pour juin 2027, à confirmer quand les grilles ouvrent. Nombre de joueurs et occupation des chambres se règlent dans la barre de coût.</p>
+  <p class="sub">Trois rondes au lever du jour, un spectacle au Fontainebleau, et le choix de l'hôtel qui va avec. Tarifs estimés pour juin 2027, à confirmer quand les grilles ouvrent. Les onglets du haut mènent aux hôtels, aux parcours, au transport, aux brasseries et à la planification des achats.</p>
   <div class="chips" role="group" aria-label="Version du voyage" style="margin-top:22px">
     <button class="chip v" data-v="long" aria-pressed="true">4 nuits · 3 rondes</button>
     <button class="chip v" data-v="short" aria-pressed="false">3 nuits · 2 rondes + Topgolf</button>
@@ -400,8 +450,28 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
   <div class="delta" id="delta"></div>
 </div></header>
 
+<!-- ===================== QUAND RÉSERVER ===================== -->
+<section id="quand" data-tab="quand"><div class="wrap">
+  <h2><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Quand réserver quoi</h2>
+  <div class="cd" id="countdown"></div>
+  <p class="lead">Compte à rebours vers le départ, et les fenêtres d'achat qui font une vraie différence : soldes du Black Friday, Boxing Day, fenêtre optimale des vols et ouverture des tee times. Les statuts suivent la date d'aujourd'hui.</p>
+  <div class="tl" id="timeline"></div>
+
+  <h3 class="bh">Budget affûté</h3>
+  <p class="lead">Cochez ce que vous avez obtenu; le total se recalcule avec le vol inclus.</p>
+  <div class="sharp" id="sharp">
+    <label class="sh"><input type="checkbox" id="sh-hotel"> <span><b>Hôtel en solde Cyber Week</b><small>STRAT à 40 % de rabais, MGM et Caesars 50–55 % : on compte −35 % sur l'hébergement</small></span><em id="sh-hotel-v"></em></label>
+    <label class="sh"><input type="checkbox" id="sh-flight"> <span><b>Vol pris en solde</b><small>Black Friday, Boxing Day ou fenêtre 31–45 jours : −15 % sur le billet</small></span><em id="sh-flight-v"></em></label>
+    <label class="sh"><input type="checkbox" id="sh-golf"> <span><b>Rondes payées d'avance en ligne</b><small>tarif prépayé ou forfait 3 rondes : −10 % sur les droits de jeu</small></span><em id="sh-golf-v"></em></label>
+    <label class="sh"><input type="checkbox" id="sh-car"> <span><b>Location réservée tôt, puis re-cotée</b><small>réserver annulable maintenant et refaire la cote chaque mois : −20 % sur le véhicule</small></span><em id="sh-car-v"></em></label>
+    <div class="sh flight"><span><b>Vol aller-retour YUL–LAS, direct</b><small>par personne, en $ CA, taxes incluses — Air Canada, mardi au samedi en juin</small></span><label class="inp"><input type="number" id="flightca" value="650" min="0" step="10"> $ CA</label></div>
+    <div class="sh-tot" id="sh-tot"></div>
+  </div>
+  <div class="note">Sources des fenêtres : rapport Air Hacks 2026 d'Expedia (fenêtre 31–45 jours, vendredi le moins cher, réserver plus de 180 jours d'avance coûte plus cher), soldes 2025 d'Air Canada (Black Friday 25–30 nov., voyage jusqu'au 31 mai; Boxing Day), Cyber Week 2025 de Las Vegas (STRAT −40 % + 30 $ de crédit, Caesars jusqu'à −55 % pour des séjours jusqu'en décembre 2026, MGM −50 %), mise en vente des billets A Perfect Circle le 2 octobre 2026. Les soldes 2026 devraient suivre le même calendrier; les fenêtres de voyage sont à vérifier le jour même.</div>
+</div></section>
+
 <!-- ===================== HÔTELS ===================== -->
-<section id="hotels"><div class="wrap">
+<section id="hotels" data-tab="hotels"><div class="wrap">
   <h2><svg class="ico" aria-hidden="true"><use href="#i-bed"/></svg>Où dormir</h2>
   <p class="lead">Le Fontainebleau est au nord du Strip. Plus on dort haut sur le boulevard, plus la sortie du spectacle est simple; plus on descend, plus on est au cœur de l'action — et plus la navette de Rio Secco est pratique chez Caesars.</p>
   <div class="chips" role="group" aria-label="Filtrer les hôtels">
@@ -486,7 +556,7 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
 </div></section>
 
 <!-- ===================== GOLF ===================== -->
-<section id="golf"><div class="wrap">
+<section id="golf" data-tab="golf"><div class="wrap">
   <h2><svg class="ico" aria-hidden="true"><use href="#i-golf"/></svg>Où jouer</h2>
   <p class="lead">Trois paliers de prix, tarifs d'été par ronde. Le caddie à Vegas est presque toujours un <em>forecaddie</em> : il marche devant le groupe, donne les distances et trouve les balles, mais vous roulez en voiturette.</p>
   <div class="chips" role="group" aria-label="Filtrer les parcours">
@@ -519,7 +589,7 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
 </div></section>
 
 <!-- ===================== TRANSPORT ===================== -->
-<section id="transport"><div class="wrap">
+<section id="transport" data-tab="transport"><div class="wrap">
   <h2><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg>Se déplacer</h2>
   <p class="lead">Calculé à partir de l'hôtel et des rondes choisis : distance réelle, Uber XL quand il y a quatre sacs, navette Caesars quand elle existe, marche jusqu'au Fontainebleau quand c'est raisonnable. Touchez une option pour qu'elle entre dans le total.</p>
   <div class="tmode">
@@ -534,7 +604,7 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
 </div></section>
 
 <!-- ===================== BRASSERIES ===================== -->
-<section id="brew"><div class="wrap">
+<section id="brew" data-tab="brew"><div class="wrap">
   <h2><svg class="ico" aria-hidden="true"><use href="#i-beer"/></svg>Brasseries qui valent le détour</h2>
   <p class="lead" id="brewlead"></p>
   <div class="brew" id="brewlist"></div>
@@ -888,7 +958,7 @@ function calc(dry){
     const tTxt=tr.uber===0&&!tr.far?' + '+tr.note:(S.car?' + essence '+fmt(t):(tr.far?' + location 1 jour '+fmt(t):' + Uber XL '+fmt(t)));
     el.innerHTML=`${S.play.has(g.n)?'Au programme : ':'Si ajoutée : '}${fmt(gRate(g)+t+c)} par pers. <span style="color:var(--ink-2);font-weight:500">(ronde ${fmt(gRate(g))}${tTxt}${c?' + caddie '+fmt(c):''})</span>`;});
   // hôtel choisi et inclusions, au-dessus de l'horaire
-  document.getElementById('selhotel').innerHTML=`<span class="sk">Hôtel choisi</span><span class="sn">${ico('bed')}${h.n}</span><span class="sp">${fmt(rPP)} US<span>${fmtCA(rPP)} par joueur, ${nights} nuits, ${rooms()} ch. à ${S.occ}${S.ht[h.id]?', selon votre total trouvé':', taxes et frais inclus'}</span></span><span class="sd">${h.strip} · Fontainebleau à ${h.walk===0?'zéro minute':h.walk+' min à pied'} · cuisinette : ${h.k?'oui':'non'}${hx.cz?' · navette Caesars':''}${hx.bf?' · déjeuner inclus':''}</span><a href="#hotels">${ico('swap')}Changer d'hôtel ↓</a>`;
+  document.getElementById('selhotel').innerHTML=`<span class="sk">Hôtel choisi</span><span class="sn">${ico('bed')}${h.n}</span><span class="sp">${fmt(rPP)} US<span>${fmtCA(rPP)} par joueur, ${nights} nuits, ${rooms()} ch. à ${S.occ}${S.ht[h.id]?', selon votre total trouvé':', taxes et frais inclus'}</span></span><span class="sd">${h.strip} · Fontainebleau à ${h.walk===0?'zéro minute':h.walk+' min à pied'} · cuisinette : ${h.k?'oui':'non'}${hx.cz?' · navette Caesars':''}${hx.bf?' · déjeuner inclus':''}</span><a href="#hotels">${ico('swap')}Changer d'hôtel →</a>`;
   const rowIco=l=>/^Aéroport/.test(l)?'plane':/^Véhicule|^Uber/.test(l)?'car':/^Repas/.test(l)?'fork':/^Bières/.test(l)?'beer':/^Soirées/.test(l)?'sun':/^A Perfect/.test(l)?'music':/^Imprévus/.test(l)?'dollar':'golf';
   const inclRows=rows.filter(r=>r[0]!==h.n).map(r=>`<li><span>${ico(rowIco(r[0]))}${r[0]}${r.kids.length&&!/^Repas|^Véhicule/.test(r[0])?' <small style="color:var(--ink-2)">'+r.kids.map(k=>k.l.split(',')[0]).join(' + ')+'</small>':''}</span><b>${fmt(r[2])}</b></li>`).join('');
   document.getElementById('incl').innerHTML=`<div class="ik">Ce qui est inclus dans le total, par joueur</div><ul><li><span>${ico('bed')}${h.n} <small style="color:var(--ink-2)">${nights} nuits, ${rooms()} ch.</small></span><b>${fmt(rPP)}</b></li>${inclRows}<li class="tot"><span>Total hors vol</span><b>${fmt(total)} US · ${fmtCA(total*(1+S.fxFee))}</b></li></ul>`;
@@ -901,6 +971,7 @@ function calc(dry){
   document.getElementById('totlab').textContent=document.getElementById('cost').classList.contains('on')?'Touchez pour refermer':'Touchez pour le détail et les options';
   const fmtG=v=>fmt(v*S.n);
   document.getElementById('bd').innerHTML=`<tr class="hd"><td>Poste</td><td>par pers.</td><td>pour ${S.n}</td></tr>`+rows.map(r=>`<tr class="${r.kids.length?'par':''}"><td>${ico(r[0]===h.n?'bed':rowIco(r[0]))}${r[0]}<span>${r[1]}</span></td><td>${fmt(r[2])}</td><td>${fmtG(r[2])}</td></tr>`+r.kids.map(k=>`<tr class="kid"><td>${k.l}</td><td>${fmt(k.v)}</td><td>${fmtG(k.v)}</td></tr>`).join('')).join('')+`<tr class="sum"><td>Total, hors vol<span>en dollars américains</span></td><td>${fmt(total)}</td><td>${fmtG(total)}</td></tr><tr class="sum cad"><td>En dollars canadiens<span>taux ${S.fx.toFixed(2)} + ${(S.fxFee*100).toFixed(1)} % de frais de conversion</span></td><td>${Math.round(total*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td><td>${Math.round(total*S.n*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td></tr>`;
+  { const golfTotal=rows.filter(r=>G.some(g=>g.n===r[0])).reduce((a,r)=>a+(r.kids[0]?r.kids[0].v:0),0); const rentRow=rows.find(r=>r[0]==='Véhicule de location'); renderSharp(rows,rPP,golfTotal,rentRow?rentRow.kids[0].v:0); }
   return total;
 }
 // hotel select
@@ -972,7 +1043,7 @@ document.getElementById('shuttle').addEventListener('click',e=>{S.shuttle=!S.shu
   const next=()=>{ const el=cur(); el.style.transition='';
     requestAnimationFrame(()=>{ el.style.transform='';
     if(step===1){ p2.hidden=false; p2.classList.add('in'); p1.classList.add('out'); step=2; setTimeout(()=>{p1.hidden=true;},500); }
-    else { p2.classList.add('out'); c.classList.add('gone'); try{sessionStorage.setItem('cover-seen','1');}catch(e){} setTimeout(()=>c.classList.add('hidden'),500); document.getElementById('plan').focus?.(); } }); };
+    else { p2.classList.add('out'); c.classList.add('gone'); try{sessionStorage.setItem('cover-seen','1');}catch(e){} setTimeout(()=>c.classList.add('hidden'),500); showTab('plan'); document.getElementById('plan').focus?.(); } }); };
   document.querySelectorAll('.cv-swipe').forEach(b=>b.addEventListener('click',next));
   let x0=null,dx=0;
   c.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;dx=0;cur().style.transition='none';},{passive:true});
@@ -1019,13 +1090,58 @@ document.getElementById('sheet-close').addEventListener('click',closeSheet);
 document.getElementById('sheet').addEventListener('click',e=>{if(e.target.id==='sheet') closeSheet();});
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('sheet').hidden) closeSheet();});
 
+
+// ===== quand réserver : compte à rebours, jalons, budget affûté =====
+const DEPART=new Date('2027-06-08T08:00:00-04:00');
+const MS=[
+ {from:'2026-10-02',to:'2026-11-16',t:'Billets A Perfect Circle + The Cult',w:'En vente depuis le 2 octobre 2026. Deux soirs au BleauLive : jeudi 10 et vendredi 11 juin. Les billets à prix nominal partent par sections; la revente baisse souvent dans les 2 à 4 dernières semaines si la salle n\'est pas pleine, mais à 4 000 places avec The Cult en première partie, parier là-dessus pour quatre sièges ensemble est risqué.',a:'Acheter maintenant, 4 places côte à côte, section intermédiaire. Si une seule date est pleine, le jeudi est le plan B.',sv:'Prix nominal ≈ frais de revente évités, 30 à 60 $ par billet'},
+ {from:'2026-10-18',to:'2026-11-24',t:'Alertes de prix et cote de référence',w:'Le rapport Air Hacks 2026 d\'Expedia montre que réserver plus de 180 jours d\'avance est en moyenne le moment le plus cher. Aujourd\'hui on observe, on n\'achète pas. YUL–LAS direct en juin se cote historiquement entre 450 et 700 $ CA aller-retour selon la semaine.',a:'Créer une alerte Google Flights pour le 8 au 12 juin, YUL–LAS direct, et une sur Hopper. Noter le prix d\'aujourd\'hui comme référence. Réserver un VUS annulable (Costco Travel ou directement) pour bloquer un prix plancher.',sv:'Rien tout de suite; évite d\'acheter au sommet'},
+ {from:'2026-11-17',to:'2026-12-05',t:'Cyber Week : Black Friday, Cyber Monday, Travel Tuesday',w:'En 2025 : STRAT −40 % + 30 $ de crédit resto par jour + tour d\'observation, pour des séjours jusqu\'au 31 octobre suivant; Caesars jusqu\'à −55 % pour des séjours jusqu\'en décembre de l\'année suivante; MGM (Excalibur, New York-New York) jusqu\'à −50 % avec crédit boisson; Westgate −50 %. Air Canada : solde du 25 au 30 novembre, mais la fenêtre de voyage 2025 s\'arrêtait au 31 mai — le 8 juin peut tomber juste à côté, à vérifier le jour même.',a:'Réserver l\'hôtel en tarif annulable pendant le solde (STRAT ou Excalibur). Vérifier la fenêtre de voyage du solde Air Canada; si juin est couvert, acheter le vol.',sv:'Hôtel −35 à −40 %, soit 60 à 90 $ CA par joueur'},
+ {from:'2026-12-26',to:'2027-01-12',t:'Boxing Day et solde du Nouvel An',w:'Le solde de Boxing Day d\'Air Canada couvre généralement une fenêtre de voyage plus longue que le Black Friday, souvent jusqu\'en juin ou à l\'automne. C\'est historiquement la deuxième meilleure chance d\'un billet direct en solde pour juin. WestJet et Transat n\'ont pas de direct YUL–LAS; Flair et Porter sont à surveiller comme solution de rechange avec escale.',a:'Si le vol n\'est pas acheté : comparer le prix soldé à la référence de novembre. Acheter si ≤ 600 $ CA aller-retour.',sv:'Vol −10 à −20 %, 60 à 120 $ CA par joueur'},
+ {from:'2027-01-15',to:'2027-02-28',t:'Grilles de golf 2027 et taux de change',w:'Les parcours publient leurs tarifs d\'été entre janvier et mars. Les forfaits « stay & play » et les tarifs prépayés non remboursables apparaissent en même temps. C\'est aussi le moment de commencer à acheter des dollars US par tranches plutôt que tout convertir à la carte en juin.',a:'Comparer les tarifs d\'été affichés aux estimations de la page et entrer les tarifs trouvés. Ouvrir un compte en USD ou acheter 500 $ US par mois.',sv:'Change : 2,5 % de frais de carte évités, ~45 $ par joueur'},
+ {from:'2027-03-08',to:'2027-03-12',t:'Ouverture des tee times — 90 jours',w:'Bali Hai et les parcours Caesars (Rio Secco, Cascata) ouvrent leur réservation en ligne jusqu\'à 90 jours d\'avance; Reflection Bay et Paiute entre 60 et 90 jours. Les départs de 6 h 30 à 7 h 30 en juin partent en premier parce que tout le monde fuit la chaleur.',a:'Réserver les trois départs dès l\'ouverture : 10 juin Rio Secco, 11 juin Reflection Bay, 9 juin Bali Hai. Vérifier la politique d\'annulation (souvent 48 h).',sv:'Pas d\'économie, mais l\'heure de départ qui sauve la ronde'},
+ {from:'2027-04-24',to:'2027-05-08',t:'Fenêtre optimale des vols — 31 à 45 jours',w:'Selon Expedia, acheter 31 à 45 jours avant le départ économise en moyenne 190 $ sur un vol international par rapport à six mois d\'avance; réserver un vendredi est 8 à 14 % moins cher qu\'un dimanche. Risque : un seul vol direct par jour, quatre sièges ensemble peuvent manquer.',a:'Si le vol n\'est toujours pas acheté, c\'est la dernière fenêtre raisonnable. Acheter un vendredi, avant le 8 mai.',sv:'Statistiquement le meilleur prix; aucune garantie sur les places'},
+ {from:'2027-05-10',to:'2027-05-25',t:'Re-cote de l\'hôtel et du véhicule',w:'Les tarifs du Strip en semaine en juin baissent souvent dans les 2 à 4 dernières semaines quand l\'occupation est faible. Avec une réservation annulable, on peut réserver à nouveau moins cher et annuler l\'ancienne. Même logique pour la location : les prix d\'auto fluctuent et une nouvelle réservation annulable ne coûte rien.',a:'Refaire une cote hôtel et véhicule; rebooker si plus bas. Réserver la baie Topgolf si une soirée est prévue (réservation 30 jours d\'avance).',sv:'0 à 20 % sur l\'hôtel, selon le marché'},
+ {from:'2027-06-01',to:'2027-06-07',t:'Dernière semaine',w:'Enregistrement 24 h avant le vol, sièges, assurance voyage et carte USD prête. Un plein de crème solaire et des manches longues UV : à 6 h 30 il fait 28 °C, à 10 h 30 il en fait 35.',a:'Confirmer les trois tee times, les transferts et l\'heure du spectacle (portes 19 h, show 20 h).',sv:'—'}
+];
+function renderTimeline(){
+  const now=new Date(); const day=864e5;
+  const cd=document.getElementById('countdown'); const left=Math.max(0,Math.ceil((DEPART-now)/day));
+  const nextMs=MS.find(m=>new Date(m.to)>=now);
+  cd.innerHTML=`<div><b>${left}</b><span>jours avant le départ</span></div><div><b>${Math.floor(left/7)}</b><span>semaines</span></div><div><b>${MS.filter(m=>new Date(m.to)<now).length}/${MS.length}</b><span>fenêtres passées</span></div><div><b>${nextMs?Math.max(0,Math.ceil((new Date(nextMs.from)-now)/day)):0}</b><span>jours avant la prochaine</span></div>`;
+  const f=d=>new Date(d+'T12:00:00').toLocaleDateString('fr-CA',{day:'numeric',month:'short'});
+  document.getElementById('timeline').innerHTML=MS.map(m=>{const a=new Date(m.from+'T00:00:00'),b=new Date(m.to+'T23:59:59'); const st=now>b?'past':now>=a?'now':(a-now)<21*day?'soon':'future'; const lbl={past:'passé',now:'en cours',soon:'bientôt',future:`dans ${Math.ceil((a-now)/day)} j`}[st];
+    return `<div class="ms ${st}"><div class="when">${f(m.from)} → ${f(m.to)}<span>${Math.max(1,Math.round((new Date(m.from)-DEPART)/-day))} j avant le départ</span><span class="st">${lbl}</span></div><div><h3>${m.t}</h3><p>${m.w}</p><div class="act"><b>À faire :</b> ${m.a}</div><div class="save">${m.sv}</div></div></div>`;}).join('');
+}
+function renderSharp(rows,rPP,golfTotal,rentV){
+  const fl=+document.getElementById('flightca').value||0; const flUS=fl/S.fx;
+  const dH=document.getElementById('sh-hotel').checked?rPP*0.35:0, dF=document.getElementById('sh-flight').checked?flUS*0.15:0, dG=document.getElementById('sh-golf').checked?golfTotal*0.10:0, dC=document.getElementById('sh-car').checked?rentV*0.20:0;
+  document.getElementById('sh-hotel-v').textContent='−'+fmt(rPP*0.35); document.getElementById('sh-flight-v').textContent='−'+fmt(flUS*0.15); document.getElementById('sh-golf-v').textContent='−'+fmt(golfTotal*0.10); document.getElementById('sh-car-v').textContent=rentV?'−'+fmt(rentV*0.20):'location non choisie';
+  const base=+document.getElementById('tot').textContent.replace(/[^0-9]/g,''); const withFlight=base+flUS; const sharp=withFlight-dH-dF-dG-dC;
+  document.getElementById('sh-tot').innerHTML=`<div><span>Total par joueur, vol inclus, avant soldes</span><b>${fmt(withFlight)} US</b><span>${fmtCA(withFlight*(1+S.fxFee))}</span></div><div class="r"><span>Budget affûté avec les cases cochées</span><b>${fmt(sharp)} US</b><span>${fmtCA(sharp*(1+S.fxFee))} · −${fmt(withFlight-sharp)}</span></div>`;
+}
+['sh-hotel','sh-flight','sh-golf','sh-car'].forEach(id=>document.getElementById(id).addEventListener('change',()=>calc()));
+document.getElementById('flightca').addEventListener('input',()=>calc());
+renderTimeline();
+
+// onglets
+function showTab(id,scrollTo){
+  document.querySelectorAll('[data-tab]').forEach(el=>{ if(el.classList.contains('tab')) el.setAttribute('aria-pressed',el.dataset.tab===id); else el.classList.toggle('on',el.dataset.tab===id); });
+  try{history.replaceState(null,'','#'+id);}catch(e){}
+  const target=scrollTo?document.querySelector(scrollTo):null;
+  if(target) target.scrollIntoView({block:'start'}); else window.scrollTo({top:0});
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]'); if(!a) return; const id=a.getAttribute('href').slice(1); const sec=document.getElementById(id); if(sec&&sec.dataset.tab){e.preventDefault();showTab(sec.dataset.tab);} });
+(function(){const h=location.hash.replace('#',''); const valid=['plan','hotels','golf','transport','brew','quand']; showTab(valid.includes(h)?h:'plan');})();
+
 // pin → card
 function go(id){
   const card=document.querySelector(`#hotelcards .card[data-id="${id}"]`);
   const sec=id==='topgolf'?document.getElementById('topgolf'):(id==='ellis'||id==='sincity'||id==='brewdog'?document.getElementById('brew'):null);
+  if(id==='topgolf'){showTab('golf','#topgolf');} else if(sec){showTab('brew');}
   document.querySelectorAll('.card.hot,.pin.hot').forEach(x=>x.classList.remove('hot'));
   if(card){card.classList.remove('hide');card.classList.add('hot');card.scrollIntoView({block:'center'});}
-  else if(sec){sec.scrollIntoView({block:'start'});}
   const pin=document.querySelector(`.pin[data-id="${id}"]`); if(pin) pin.classList.add('hot');
 }
 document.querySelectorAll('.pin').forEach(p=>{p.addEventListener('click',()=>go(p.dataset.id));p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(p.dataset.id);}});});

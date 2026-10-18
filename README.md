@@ -6,7 +6,9 @@ Un seul fichier (`index.html`), sans dépendance ni build : ouvrez-le dans un na
 
 ## Contenu
 - Pages d'accueil (couverture, mots-chocs), glisser vers la droite pour le plan
-- Horaire jour par jour, AM / PM, créneaux remplaçables avec écart de coût
+- Navigation par onglets : Plan, Hôtels, Golf, Transport, Bières, Planification
+- Planification : compte à rebours, fenêtres d'achat (Cyber Week, Boxing Day, tee times, fenêtre 31–45 jours) et budget affûté avec le vol
+- Horaire jour par jour, AM / PM, créneaux remplaçables avec écart de coût (parcours, soirées, Topgolf)
 - Hôtels par palier, filtres, carte schématique du Strip, tarifs trouvés modifiables
 - Parcours par palier, caddie, distance depuis le Strip
 - Transport : Uber vs véhicule de location (stationnement et essence inclus)
