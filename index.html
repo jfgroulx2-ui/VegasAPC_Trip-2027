@@ -184,6 +184,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tab:focus-visible{outline:3px solid var(--dawn);outline-offset:-3px}
 @media (min-width:700px){.tab{grid-auto-flow:column;align-items:center;gap:8px;font-size:17px;padding:12px}}
 [data-tab]:not(.tab):not(.on){display:none}
+.fls{display:grid;gap:10px;margin-bottom:26px}
+.fl{background:var(--card);border:2px solid var(--line);border-left:8px solid var(--mauve);padding:12px 14px}
+.fl.cur{border-color:var(--fairway);border-left-color:var(--fairway);box-shadow:inset 0 0 0 1px var(--fairway)}
+.fl-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;align-items:baseline}
+.fl-a{font-family:var(--font-d);font-size:22px;font-weight:700}
+.fl-t{font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--ink-2)}
+.fl p{font-size:14px;color:var(--ink-2);margin-top:4px}
+.fl-bag{font-size:13px}
+.fl-row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.fl-est{font-size:13px;color:var(--ink-2);flex:1 1 100%}
 /* sections */
 section{padding:34px 0 10px}
 .lead{font-size:17px;color:var(--ink-2);margin:8px 0 18px;max-width:40em}
@@ -457,6 +467,11 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
   <p class="lead">Compte à rebours vers le départ, et les fenêtres d'achat qui font une vraie différence : soldes du Black Friday, Boxing Day, fenêtre optimale des vols et ouverture des tee times. Les statuts suivent la date d'aujourd'hui.</p>
   <div class="tl" id="timeline"></div>
 
+  <h3 class="bh">Options de vol</h3>
+  <p class="lead">Un vol par option, avec ce qu'il faut savoir avant de comparer les prix. Entrez le prix trouvé, choisissez, et décidez si le vol entre dans le total de la barre du bas.</p>
+  <div class="chips" style="margin-bottom:10px"><button type="button" class="chip k" id="fl-inc" aria-pressed="false">Inclure le vol dans le total</button></div>
+  <div class="fls" id="flights"></div>
+
   <h3 class="bh">Budget affûté</h3>
   <p class="lead">Cochez ce que vous avez obtenu; le total se recalcule avec le vol inclus.</p>
   <div class="sharp" id="sharp">
@@ -464,7 +479,7 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
     <label class="sh"><input type="checkbox" id="sh-flight"> <span><b>Vol pris en solde</b><small>Black Friday, Boxing Day ou fenêtre 31–45 jours : −15 % sur le billet</small></span><em id="sh-flight-v"></em></label>
     <label class="sh"><input type="checkbox" id="sh-golf"> <span><b>Rondes payées d'avance en ligne</b><small>tarif prépayé ou forfait 3 rondes : −10 % sur les droits de jeu</small></span><em id="sh-golf-v"></em></label>
     <label class="sh"><input type="checkbox" id="sh-car"> <span><b>Location réservée tôt, puis re-cotée</b><small>réserver annulable maintenant et refaire la cote chaque mois : −20 % sur le véhicule</small></span><em id="sh-car-v"></em></label>
-    <div class="sh flight"><span><b>Vol aller-retour YUL–LAS, direct</b><small>par personne, en $ CA, taxes incluses — Air Canada, mardi au samedi en juin</small></span><label class="inp"><input type="number" id="flightca" value="650" min="0" step="10"> $ CA</label></div>
+    <div class="sh flight"><span><b>Vol retenu</b><small id="sh-flight-lbl">choisi dans les options de vol ci-dessus</small></span><em id="sh-flight-ca"></em></div>
     <div class="sh-tot" id="sh-tot"></div>
   </div>
   <div class="note">Sources des fenêtres : rapport Air Hacks 2026 d'Expedia (fenêtre 31–45 jours, vendredi le moins cher, réserver plus de 180 jours d'avance coûte plus cher), soldes 2025 d'Air Canada (Black Friday 25–30 nov., voyage jusqu'au 31 mai; Boxing Day), Cyber Week 2025 de Las Vegas (STRAT −40 % + 30 $ de crédit, Caesars jusqu'à −55 % pour des séjours jusqu'en décembre 2026, MGM −50 %), mise en vente des billets A Perfect Circle le 2 octobre 2026. Les soldes 2026 devraient suivre le même calendrier; les fenêtres de voyage sont à vérifier le jour même.</div>
@@ -621,7 +636,7 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
 
 <div class="cost" id="cost" aria-live="polite">
   <div class="bar" id="costbar" role="button" tabindex="0" aria-expanded="false" aria-controls="costopen">
-    <div class="tot"><span id="tot">0 $</span><small>US par personne, hors vol</small><small id="totcad" class="cadline"></small></div>
+    <div class="tot"><span id="tot">0 $</span><small id="totsub">US par personne, hors vol</small><small id="totcad" class="cadline"></small></div>
     <div class="lab" id="totlab">Touchez pour le détail et les options</div>
     <div class="grp"><span id="grptot"></span><span id="grpsub"></span></div>
   </div>
@@ -649,6 +664,16 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
 <script>
 const ico=n=>`<svg class="ico" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const KI={golf:'golf',show:'music',top:'target',travel:'plane',free:'sun'};
+// ===== options de vol =====
+const FL=[
+ {key:'ac-direct',a:'Air Canada',t:'Direct YUL → LAS',info:'AC 1709 à l\'aller, AC 1708 au retour. Horaires observés en 2026 selon la saison : aller 8 h 30 → 11 h 00 (A319) ou 16 h 45 → 19 h 10 et 17 h 55 → 20 h 39 (A321); retour 7 h 30 → 15 h 20, 12 h 30 → 20 h 17 ou 23 h 25 → 7 h 10 le lendemain. 5 h 25 à l\'aller, 4 h 45 au retour. Un vol par jour en juin, ce qui limite les sièges à quatre côte à côte en solde.',est:'550–700 $',d:650,bag:'1er bagage 35 $ chacun en tarif Standard; inclus en Flex',stops:0},
+ {key:'ac-yyz',a:'Air Canada via Toronto',t:'1 escale, YUL → YYZ → LAS',info:'Plusieurs départs par jour sur chaque tronçon, A321 ou 737 MAX 8 sur Toronto–Las Vegas. 7 h 30 à 8 h 30 au total. Souvent 50 à 100 $ sous le direct quand celui-ci est plein; même tarif de bagages.',est:'480–620 $',d:560,bag:'1er bagage 35 $ en Standard',stops:1},
+ {key:'porter',a:'Porter via Toronto',t:'1 escale, YUL → YYZ → LAS',info:'Embraer E195-E2 sans siège du milieu, bière et vin inclus, Wi-Fi gratuit. Correspondance à Pearson. 7 h 30 à 9 h selon l\'attente. Bon rapport confort-prix, mais horaires moins nombreux que chez Air Canada.',est:'450–600 $',d:520,bag:'bagage enregistré payant en tarif de base (~45 $), inclus en PorterClassic Flexible',stops:1},
+ {key:'westjet',a:'WestJet via Calgary ou Toronto',t:'1 escale',info:'Escale à l\'ouest (Calgary, 737) ou à Toronto. 8 à 10 h au total; l\'escale à Calgary fait faire un détour mais arrive souvent tôt à Las Vegas.',est:'500–650 $',d:580,bag:'1er bagage ~40 $ chacun',stops:1},
+ {key:'us-hub',a:'United, Delta ou American via un hub américain',t:'1 escale, Newark, Chicago ou Dallas',info:'Prédédouanement à Montréal, puis escale intérieure. Bons horaires, mais tarifs de base sans bagage ni sélection de siège; risque de correspondance serrée en juin (orages).',est:'430–600 $',d:500,bag:'bagage 35–40 $ US chacun, sélection de siège payante en Basic',stops:1},
+ {key:'btv',a:'Depuis Burlington (BTV) ou Plattsburgh (PBG)',t:'1 escale, en $ US, 1 h 30 à 2 h de route',info:'Vols en $ US au départ d\'un aéroport frontalier, souvent 100 à 200 $ CA sous Montréal pour les mêmes dates. Ajouter l\'essence, le stationnement (~12 $ US par jour) et 2 h de route de chaque côté — et un départ encore plus matinal le mardi.',est:'300–450 $ US + 120 $ de route et stationnement',d:560,bag:'selon le transporteur',stops:1}
+];
+const flightCA=()=>{const f=FL.find(x=>x.key===S.flight.key); return S.flight.ca[f.key]??f.d;};
 const H=[
  // id, name, tier, x(side: 'w'|'e'), y, walkFB(min), kmFB, strip, kitchen, price, desc, brewery, pick
  {id:'fb',n:'Fontainebleau',t:'p',s:'e',y:122,walk:0,km:0,strip:'Nord du Strip',k:false,p:'220–350 $',d:"Vous dormez au-dessus de la salle. Sortie de spectacle à zéro minute, tours modernes, piscines immenses. Le moins pratique pour Rio Secco (pas de navette Caesars).",b:'Taxi 12 min vers le Arts District'},
@@ -832,7 +857,7 @@ document.querySelectorAll('.chip.v').forEach(b=>b.addEventListener('click',()=>{
 window.addEventListener('resize',()=>renderDays(document.querySelector('.chip.v[aria-pressed="true"]').dataset.v));
 
 // ===== coût total =====
-const S={ver:'long',car:true,shuttle:true,n:4,slots:{long:{9:'Bali Hai',10:'Rio Secco',11:'Reflection Bay'},short:{10:'Rio Secco',11:'Reflection Bay'}},pm:{long:{8:'arrival',9:'pool',10:'henderson',11:'show'},short:{9:'topgolf',10:'henderson',11:'show'}},extras:new Set(),hp:{},gp:{},ht:{strat:{v:450,nights:4},excal:{v:375,nights:4},nyny:{v:565,nights:4},resinn:{v:1900,nights:4}},supp:30,hotel:'strat',fri:1.5,fx:1.37,fxFee:0.025,cont:5,play:new Set(['Bali Hai','Rio Secco','Reflection Bay']),cad:new Set(),occ:2,cook:new Set(),out:60,ticket:150,tg:false,tgForced:false};
+const S={ver:'long',car:true,shuttle:true,n:4,flight:{inc:false,key:'ac-direct',ca:{}},slots:{long:{9:'Bali Hai',10:'Rio Secco',11:'Reflection Bay'},short:{10:'Rio Secco',11:'Reflection Bay'}},pm:{long:{8:'arrival',9:'pool',10:'henderson',11:'show'},short:{9:'topgolf',10:'henderson',11:'show'}},extras:new Set(),hp:{},gp:{},ht:{strat:{v:450,nights:4},excal:{v:375,nights:4},nyny:{v:565,nights:4},resinn:{v:1900,nights:4}},supp:30,hotel:'strat',fri:1.5,fx:1.37,fxFee:0.025,cont:5,play:new Set(['Bali Hai','Rio Secco','Reflection Bay']),cad:new Set(),occ:2,cook:new Set(),out:60,ticket:150,tg:false,tgForced:false};
 // repas par personne : r = restaurant, c = cuisiné (épicerie)
 const MEALS={dej:{n:'Déjeuners',r:22,c:6},din:{n:'Dîners',r:32,c:10},sou:{n:'Soupers',r:75,c:25}};
 const fmt=n=>Math.round(n).toLocaleString('fr-CA')+' $';
@@ -921,6 +946,7 @@ function calc(dry){
   const mealDesc=mealKids.map(k=>k.l).join(', ');
   R('Repas',`${days} jours${mine<allResto?' — '+fmt(allResto-mine)+' d\'économie par joueur grâce à la cuisinette':''}${h.k&&mine>=allResto?' — cuisinette disponible, touchez un repas dans les options':''}`,mine,mealKids);
   R(`Bières et sorties`,`${days} jours à ${S.out} $`,S.out*days);
+  if(S.flight.inc){const f=FL.find(x=>x.key===S.flight.key); R('Vol : '+f.a,`${f.t}, ${flightCA()} $ CA par personne converti à ${S.fx.toFixed(2)}`,flightCA()/S.fx);}
   const sub=rows.reduce((a,r)=>a+r[2],0); if(S.cont) R(`Imprévus et pourboires divers, ${S.cont} %`,'valet, femme de chambre, balles perdues, taxi de trop',sub*S.cont/100);
   const total=rows.reduce((a,r)=>a+r[2],0);
   if(dry) return total;
@@ -959,10 +985,10 @@ function calc(dry){
     el.innerHTML=`${S.play.has(g.n)?'Au programme : ':'Si ajoutée : '}${fmt(gRate(g)+t+c)} par pers. <span style="color:var(--ink-2);font-weight:500">(ronde ${fmt(gRate(g))}${tTxt}${c?' + caddie '+fmt(c):''})</span>`;});
   // hôtel choisi et inclusions, au-dessus de l'horaire
   document.getElementById('selhotel').innerHTML=`<span class="sk">Hôtel choisi</span><span class="sn">${ico('bed')}${h.n}</span><span class="sp">${fmt(rPP)} US<span>${fmtCA(rPP)} par joueur, ${nights} nuits, ${rooms()} ch. à ${S.occ}${S.ht[h.id]?', selon votre total trouvé':', taxes et frais inclus'}</span></span><span class="sd">${h.strip} · Fontainebleau à ${h.walk===0?'zéro minute':h.walk+' min à pied'} · cuisinette : ${h.k?'oui':'non'}${hx.cz?' · navette Caesars':''}${hx.bf?' · déjeuner inclus':''}</span><a href="#hotels">${ico('swap')}Changer d'hôtel →</a>`;
-  const rowIco=l=>/^Aéroport/.test(l)?'plane':/^Véhicule|^Uber/.test(l)?'car':/^Repas/.test(l)?'fork':/^Bières/.test(l)?'beer':/^Soirées/.test(l)?'sun':/^A Perfect/.test(l)?'music':/^Imprévus/.test(l)?'dollar':'golf';
+  const rowIco=l=>/^Aéroport|^Vol/.test(l)?'plane':/^Véhicule|^Uber/.test(l)?'car':/^Repas/.test(l)?'fork':/^Bières/.test(l)?'beer':/^Soirées/.test(l)?'sun':/^A Perfect/.test(l)?'music':/^Imprévus/.test(l)?'dollar':'golf';
   const inclRows=rows.filter(r=>r[0]!==h.n).map(r=>`<li><span>${ico(rowIco(r[0]))}${r[0]}${r.kids.length&&!/^Repas|^Véhicule/.test(r[0])?' <small style="color:var(--ink-2)">'+r.kids.map(k=>k.l.split(',')[0]).join(' + ')+'</small>':''}</span><b>${fmt(r[2])}</b></li>`).join('');
-  document.getElementById('incl').innerHTML=`<div class="ik">Ce qui est inclus dans le total, par joueur</div><ul><li><span>${ico('bed')}${h.n} <small style="color:var(--ink-2)">${nights} nuits, ${rooms()} ch.</small></span><b>${fmt(rPP)}</b></li>${inclRows}<li class="tot"><span>Total hors vol</span><b>${fmt(total)} US · ${fmtCA(total*(1+S.fxFee))}</b></li></ul>`;
-  document.getElementById('tot').textContent=fmt(total);
+  document.getElementById('incl').innerHTML=`<div class="ik">Ce qui est inclus dans le total, par joueur</div><ul><li><span>${ico('bed')}${h.n} <small style="color:var(--ink-2)">${nights} nuits, ${rooms()} ch.</small></span><b>${fmt(rPP)}</b></li>${inclRows}<li class="tot"><span>Total ${S.flight.inc?'vol inclus':'hors vol'}</span><b>${fmt(total)} US · ${fmtCA(total*(1+S.fxFee))}</b></li></ul>`;
+  document.getElementById('tot').textContent=fmt(total); document.getElementById('totsub').textContent=S.flight.inc?'US par personne, vol inclus':'US par personne, hors vol';
   const cad=total*S.fx*(1+S.fxFee); document.getElementById('totcad').textContent=`≈ ${Math.round(cad).toLocaleString('fr-CA')} $ CA`;
   document.getElementById('grptot').textContent=fmt(total*S.n)+' pour '+S.n;
   document.getElementById('grpsub').textContent=`${S.n} joueurs, ${rooms()} ch. · ${nights} nuits · ${S.play.size} ronde${S.play.size>1?'s':''}${hasTopgolf(S.ver)?' + Topgolf':''} · ${h.n.split(' — ')[0]}`;
@@ -970,7 +996,7 @@ function calc(dry){
   document.getElementById('roomsum').textContent=`${rooms()} chambre${rooms()>1?'s':''} pour ${S.n} joueurs${S.n%S.occ?' (la dernière est moins remplie)':''}${S.occ>2?' — vérifiez que l\'hôtel accepte '+S.occ+' adultes par chambre':''}`;
   document.getElementById('totlab').textContent=document.getElementById('cost').classList.contains('on')?'Touchez pour refermer':'Touchez pour le détail et les options';
   const fmtG=v=>fmt(v*S.n);
-  document.getElementById('bd').innerHTML=`<tr class="hd"><td>Poste</td><td>par pers.</td><td>pour ${S.n}</td></tr>`+rows.map(r=>`<tr class="${r.kids.length?'par':''}"><td>${ico(r[0]===h.n?'bed':rowIco(r[0]))}${r[0]}<span>${r[1]}</span></td><td>${fmt(r[2])}</td><td>${fmtG(r[2])}</td></tr>`+r.kids.map(k=>`<tr class="kid"><td>${k.l}</td><td>${fmt(k.v)}</td><td>${fmtG(k.v)}</td></tr>`).join('')).join('')+`<tr class="sum"><td>Total, hors vol<span>en dollars américains</span></td><td>${fmt(total)}</td><td>${fmtG(total)}</td></tr><tr class="sum cad"><td>En dollars canadiens<span>taux ${S.fx.toFixed(2)} + ${(S.fxFee*100).toFixed(1)} % de frais de conversion</span></td><td>${Math.round(total*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td><td>${Math.round(total*S.n*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td></tr>`;
+  document.getElementById('bd').innerHTML=`<tr class="hd"><td>Poste</td><td>par pers.</td><td>pour ${S.n}</td></tr>`+rows.map(r=>`<tr class="${r.kids.length?'par':''}"><td>${ico(r[0]===h.n?'bed':rowIco(r[0]))}${r[0]}<span>${r[1]}</span></td><td>${fmt(r[2])}</td><td>${fmtG(r[2])}</td></tr>`+r.kids.map(k=>`<tr class="kid"><td>${k.l}</td><td>${fmt(k.v)}</td><td>${fmtG(k.v)}</td></tr>`).join('')).join('')+`<tr class="sum"><td>Total, ${S.flight.inc?'vol inclus':'hors vol'}<span>en dollars américains</span></td><td>${fmt(total)}</td><td>${fmtG(total)}</td></tr><tr class="sum cad"><td>En dollars canadiens<span>taux ${S.fx.toFixed(2)} + ${(S.fxFee*100).toFixed(1)} % de frais de conversion</span></td><td>${Math.round(total*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td><td>${Math.round(total*S.n*S.fx*(1+S.fxFee)).toLocaleString('fr-CA')} $ CA</td></tr>`;
   { const golfTotal=rows.filter(r=>G.some(g=>g.n===r[0])).reduce((a,r)=>a+(r.kids[0]?r.kids[0].v:0),0); const rentRow=rows.find(r=>r[0]==='Véhicule de location'); renderSharp(rows,rPP,golfTotal,rentRow?rentRow.kids[0].v:0); }
   return total;
 }
@@ -1091,6 +1117,18 @@ document.getElementById('sheet').addEventListener('click',e=>{if(e.target.id==='
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('sheet').hidden) closeSheet();});
 
 
+function renderFlights(){
+  const box=document.getElementById('flights'); if(!box) return;
+  box.innerHTML=FL.map(f=>{const cur=S.flight.key===f.key; const v=S.flight.ca[f.key]??f.d;
+    return `<div class="fl ${cur?'cur':''}"><div class="fl-h"><span class="fl-a">${ico('plane')}${f.a}</span><span class="fl-t">${f.t}</span></div><p>${f.info}</p><p class="fl-bag">${ico('ticket')}${f.bag}</p>
+      <div class="fl-row"><span class="fl-est">Estimé ${f.est} par personne, aller-retour</span><label class="inp">Prix trouvé <input type="number" class="flp" data-k="${f.key}" value="${v}" min="0" step="10"> $ CA</label><button type="button" class="sel flc" data-k="${f.key}" aria-pressed="${cur}">${cur?'Vol choisi':'Choisir ce vol'}</button></div></div>`;}).join('');
+  box.querySelectorAll('.flp').forEach(i=>i.addEventListener('input',e=>{S.flight.ca[e.target.dataset.k]=+e.target.value||0; calc();}));
+  box.querySelectorAll('.flc').forEach(b=>b.addEventListener('click',()=>{S.flight.key=b.dataset.k; renderFlights(); calc();}));
+  const t=document.getElementById('fl-inc'); if(t){t.setAttribute('aria-pressed',S.flight.inc); t.textContent=S.flight.inc?'Vol inclus dans le total':'Inclure le vol dans le total';}
+}
+document.getElementById('fl-inc').addEventListener('click',()=>{S.flight.inc=!S.flight.inc; renderFlights(); calc();});
+renderFlights();
+
 // ===== quand réserver : compte à rebours, jalons, budget affûté =====
 const DEPART=new Date('2027-06-08T08:00:00-04:00');
 const MS=[
@@ -1114,14 +1152,15 @@ function renderTimeline(){
     return `<div class="ms ${st}"><div class="when">${f(m.from)} → ${f(m.to)}<span>${Math.max(1,Math.round((new Date(m.from)-DEPART)/-day))} j avant le départ</span><span class="st">${lbl}</span></div><div><h3>${m.t}</h3><p>${m.w}</p><div class="act"><b>À faire :</b> ${m.a}</div><div class="save">${m.sv}</div></div></div>`;}).join('');
 }
 function renderSharp(rows,rPP,golfTotal,rentV){
-  const fl=+document.getElementById('flightca').value||0; const flUS=fl/S.fx;
+  const fl=flightCA(); const flUS=fl/S.fx;
   const dH=document.getElementById('sh-hotel').checked?rPP*0.35:0, dF=document.getElementById('sh-flight').checked?flUS*0.15:0, dG=document.getElementById('sh-golf').checked?golfTotal*0.10:0, dC=document.getElementById('sh-car').checked?rentV*0.20:0;
   document.getElementById('sh-hotel-v').textContent='−'+fmt(rPP*0.35); document.getElementById('sh-flight-v').textContent='−'+fmt(flUS*0.15); document.getElementById('sh-golf-v').textContent='−'+fmt(golfTotal*0.10); document.getElementById('sh-car-v').textContent=rentV?'−'+fmt(rentV*0.20):'location non choisie';
-  const base=+document.getElementById('tot').textContent.replace(/[^0-9]/g,''); const withFlight=base+flUS; const sharp=withFlight-dH-dF-dG-dC;
+  { const f=FL.find(x=>x.key===S.flight.key); document.getElementById('sh-flight-lbl').textContent=f.a+' — '+f.t; document.getElementById('sh-flight-ca').textContent=fl+' $ CA'; }
+  const base=+document.getElementById('tot').textContent.replace(/[^0-9]/g,''); const withFlight=S.flight.inc?base:base+flUS; const sharp=withFlight-dH-dF-dG-dC;
   document.getElementById('sh-tot').innerHTML=`<div><span>Total par joueur, vol inclus, avant soldes</span><b>${fmt(withFlight)} US</b><span>${fmtCA(withFlight*(1+S.fxFee))}</span></div><div class="r"><span>Budget affûté avec les cases cochées</span><b>${fmt(sharp)} US</b><span>${fmtCA(sharp*(1+S.fxFee))} · −${fmt(withFlight-sharp)}</span></div>`;
 }
 ['sh-hotel','sh-flight','sh-golf','sh-car'].forEach(id=>document.getElementById(id).addEventListener('change',()=>calc()));
-document.getElementById('flightca').addEventListener('input',()=>calc());
+
 renderTimeline();
 
 // onglets
