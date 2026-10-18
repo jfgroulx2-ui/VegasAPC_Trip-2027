@@ -71,15 +71,42 @@ p{margin:0}
 .pane.p2{z-index:1;background:#0E0B1F;background-image:radial-gradient(circle at 85% 10%,rgba(227,57,155,.35),transparent 45%),radial-gradient(circle at 10% 90%,rgba(62,138,80,.45),transparent 50%);align-items:start}
 .pane.p2.in{animation:slidein .45s cubic-bezier(.3,0,.2,1)}
 @keyframes slidein{from{opacity:0}to{opacity:1}}
-.bz{position:relative;padding:calc(28px + env(safe-area-inset-top,0px)) 22px calc(36px + env(safe-area-inset-bottom,0px));max-width:1040px;margin:0 auto;width:100%;color:#F4E7CF;display:grid;align-content:space-between;min-height:100%}
-.bz-list{list-style:none;margin:0;padding:0;display:grid;gap:clamp(6px,1.6vh,16px)}
-.bz-list li{font-family:var(--font-d);font-weight:700;line-height:.92;font-size:clamp(40px,11vw,104px);letter-spacing:-.01em;opacity:0;transform:translateX(-24px);animation:bzin .5s cubic-bezier(.2,.7,.2,1) forwards}
-.bz-list li span{display:block;font-size:.42em;font-weight:600;letter-spacing:.16em;color:rgba(244,231,207,.75)}
-.bz-list .b1{animation-delay:.05s;color:#F3B35A}.bz-list .b2{animation-delay:.2s;color:#E6702E}.bz-list .b3{animation-delay:.35s;color:#4FA061}.bz-list .b4{animation-delay:.5s;color:#7FD6FF}.bz-list .b5{animation-delay:.65s;color:#E3399B;text-shadow:0 0 18px rgba(227,57,155,.55)}.bz-list .b6{animation-delay:.8s;color:#F4E7CF}
-.bz .cv-swipe{margin-top:22px}
-@keyframes bzin{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.bz-list li{animation:none;opacity:1;transform:none}}
-@media (max-height:700px){.bz-list li{font-size:clamp(32px,8.5vw,70px)}}
+.slot-wrap{position:relative;padding:calc(22px + env(safe-area-inset-top,0px)) 20px calc(30px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;width:100%;color:#F4E7CF;display:grid;justify-items:center;align-content:center;min-height:100%;gap:10px;text-align:center}
+.marquee{display:flex;gap:10px;margin-bottom:4px}
+.marquee span{width:10px;height:10px;border-radius:50%;background:#5a4a2a;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.pane.win .marquee span{animation:bulb .25s steps(1) infinite}
+.pane.win .marquee span:nth-child(even){animation-delay:.125s}
+@keyframes bulb{0%,49%{background:#FFE3A3;box-shadow:0 0 10px #F3B35A}50%,100%{background:#E3399B;box-shadow:0 0 10px #E3399B}}
+.sl-kick{font-family:var(--font-d);font-size:17px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#F3B35A;margin:0}
+.sl-h{font-family:var(--font-d);font-weight:700;font-size:clamp(44px,13vw,96px);line-height:.9;margin:0 0 6px}
+.sl-h em{font-style:normal;color:#E3399B;text-shadow:0 0 18px rgba(227,57,155,.55)}
+.machine{position:relative;width:100%;background:linear-gradient(#3a2a5a,#1a1030);border:4px solid #F3B35A;border-radius:18px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.5),inset 0 0 0 2px rgba(0,0,0,.35)}
+.reels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.reel{position:relative;height:var(--rh,92px);overflow:hidden;background:#F4E7CF;border-radius:10px;box-shadow:inset 0 10px 14px rgba(0,0,0,.25),inset 0 -10px 14px rgba(0,0,0,.25)}
+.strip{display:grid;will-change:transform}
+.strip .sym{height:var(--rh,92px);display:grid;place-items:center;color:#2A2338}
+.strip .sym svg{width:58%;height:58%}
+.sym.golf{color:#2E6B3C}.sym.guitar{color:#8A2E5C}.sym.beer{color:#B8741A}.sym.music{color:#6E4F7A}.sym.sun{color:#E6702E}.sym.dice{color:#2A2338}.sym.pin{color:#3B7A8A}
+.reel.spinning .strip{animation:reelspin .22s linear infinite}
+@keyframes reelspin{from{transform:translateY(0)}to{transform:translateY(calc(var(--rh,92px) * -7))}}
+.reel.stopping .strip{transition:transform .9s cubic-bezier(.15,.9,.3,1.05)}
+.pane.win .reel{box-shadow:0 0 0 3px #F3B35A,0 0 26px #F3B35A,inset 0 10px 14px rgba(0,0,0,.25),inset 0 -10px 14px rgba(0,0,0,.25);animation:reelglow .35s ease-in-out infinite alternate}
+@keyframes reelglow{to{box-shadow:0 0 0 3px #E3399B,0 0 36px #E3399B,inset 0 10px 14px rgba(0,0,0,.25),inset 0 -10px 14px rgba(0,0,0,.25)}}
+.payline{position:absolute;left:8px;right:8px;top:50%;height:2px;background:rgba(227,57,155,.75);pointer-events:none;transform:translateY(-1px)}
+.jackpot{min-height:64px;display:grid;justify-items:center;opacity:0;transform:scale(.6);transition:transform .35s cubic-bezier(.2,1.4,.4,1),opacity .2s}
+.jackpot span{font-family:var(--font-d);font-size:clamp(40px,12vw,84px);font-weight:700;line-height:.9;color:#F3B35A;text-shadow:0 0 20px rgba(243,179,90,.8)}
+.jackpot small{font-family:var(--font-d);font-size:18px;font-weight:600;color:#F4E7CF;letter-spacing:.1em;text-transform:uppercase}
+.pane.win .jackpot{opacity:1;transform:scale(1)}
+.spin{display:grid;grid-auto-flow:column;align-items:center;gap:12px;background:#E3399B;border:0;border-radius:999px;padding:12px 28px 12px 14px;cursor:pointer;color:#fff;font-family:var(--font-d);font-size:28px;font-weight:700;letter-spacing:.12em;box-shadow:0 6px 0 #8A2E5C,0 10px 24px rgba(0,0,0,.4);transition:transform .08s,box-shadow .08s}
+.spin:active,.spin.down{transform:translateY(5px);box-shadow:0 1px 0 #8A2E5C,0 4px 12px rgba(0,0,0,.4)}
+.spin:disabled{opacity:.6;cursor:default}
+.spin-knob{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#F3B35A 60%,#B8741A)}
+.spin:focus-visible{outline:3px solid #F4E7CF;outline-offset:3px}
+.sl-hint{font-size:14px;color:rgba(244,231,207,.75);margin:0}
+.pane.win::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 40%,rgba(243,179,90,.35),transparent 55%);animation:flash .5s ease-out 3}
+@keyframes flash{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+@media (max-width:380px){.reel{--rh:72px}}
+@media (prefers-reduced-motion:reduce){.reel.spinning .strip{animation-duration:.6s}.pane.win .marquee span,.pane.win .reel{animation:none}}
 /* hero */
 .hero{padding:34px 0 18px;border-bottom:3px solid var(--ink)}
 .hero .sub{font-size:19px;color:var(--ink-2);margin-top:6px;max-width:34em}
@@ -359,6 +386,8 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
   <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 8V6h18v2a2 2 0 0 0 0 4v2H3v-2a2 2 0 0 0 0-4zM3 16h18v2H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
   <symbol id="i-fork" viewBox="0 0 24 24"><path d="M7 2v8a3 3 0 0 0 6 0V2M10 2v20M17 2c-2 2-2 8-2 10h3v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 20a6 6 0 0 1 12 0M14 20a5 5 0 0 1 7-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-guitar" viewBox="0 0 24 24"><path d="M20 3l-6 6M15 8l1 1M9 11c-2 0-4 1.5-4 3.5 0 1-1 1.5-1 3a3.5 3.5 0 0 0 3.5 3.5c1.5 0 2-1 3-1 2 0 3.5-2 3.5-4 0-1.5-1-2.5-1-3.5L9 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="16.5" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-dice" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/><circle cx="16" cy="8" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="8" cy="16" r="1.6" fill="currentColor"/><circle cx="16" cy="16" r="1.6" fill="currentColor"/></symbol>
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
  </defs>
 </svg>
@@ -420,16 +449,22 @@ footer{padding:10px 0 30px;font-size:13px;color:var(--ink-2)}
   </div>
  </div>
  <div class="pane p2" id="pane2" hidden>
-  <div class="bz">
-    <ul class="bz-list" aria-label="En trois mots ou presque">
-      <li class="b1">SUNRISE<span>TEE TIMES</span></li>
-      <li class="b2">DESERT<span>CANYONS</span></li>
-      <li class="b3">LAKE<span>GOLF</span></li>
-      <li class="b4">NEON<span>NIGHTS</span></li>
-      <li class="b5">A PERFECT CIRCLE<span>LIVE</span></li>
-      <li class="b6">ZÉRO<span>RÉVEIL LE SAMEDI</span></li>
-    </ul>
-    <button class="cv-swipe" type="button" aria-label="Ouvrir le plan"><span class="cv-track"><span class="cv-knob">→</span></span><span class="cv-lbl">Glissez pour le plan</span></button>
+  <div class="slot-wrap">
+    <div class="marquee" id="marquee"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <p class="sl-kick">Tirez le levier</p>
+    <h2 class="sl-h">VEGAS <em>2027</em></h2>
+    <div class="machine" id="machine">
+      <div class="reels" id="reels">
+        <div class="reel"><div class="strip"></div></div>
+        <div class="reel"><div class="strip"></div></div>
+        <div class="reel"><div class="strip"></div></div>
+        <div class="reel"><div class="strip"></div></div>
+      </div>
+      <div class="payline"></div>
+    </div>
+    <div class="jackpot" id="jackpot" aria-live="polite"><span>JACKPOT</span><small>3 rondes + 1 show</small></div>
+    <button type="button" class="spin" id="spin"><span class="spin-knob"></span><span class="spin-lbl">SPIN</span></button>
+    <p class="sl-hint">Trois drapeaux et une guitare, et on passe au plan.</p>
   </div>
  </div>
 </section>
@@ -1071,14 +1106,28 @@ document.getElementById('shuttle').addEventListener('click',e=>{S.shuttle=!S.shu
     if(step===1){ p2.hidden=false; p2.classList.add('in'); p1.classList.add('out'); step=2; setTimeout(()=>{p1.hidden=true;},500); }
     else { p2.classList.add('out'); c.classList.add('gone'); try{sessionStorage.setItem('cover-seen','1');}catch(e){} setTimeout(()=>c.classList.add('hidden'),500); showTab('plan'); document.getElementById('plan').focus?.(); } }); };
   document.querySelectorAll('.cv-swipe').forEach(b=>b.addEventListener('click',next));
+  // machine à sous
+  const SYM=['golf','beer','sun','music','guitar','dice','pin']; const TARGET=['golf','golf','golf','guitar']; const REP=6;
+  const reels=[...document.querySelectorAll('#reels .reel')];
+  reels.forEach((r,ri)=>{const st=r.querySelector('.strip'); let html=''; for(let k=0;k<REP;k++) SYM.forEach(sy=>{html+=`<div class="sym ${sy}">${ico(sy)}</div>`;}); st.innerHTML=html;
+    const start=(ri*2)%SYM.length; st.style.transform=`translateY(calc(var(--rh,92px) * -${start}))`;});
+  let spun=false;
+  function spin(){ if(spun) return; spun=true; const btn=document.getElementById('spin'); btn.disabled=true; btn.classList.add('down'); setTimeout(()=>btn.classList.remove('down'),200);
+    reels.forEach(r=>{r.classList.remove('stopping'); r.classList.add('spinning');});
+    reels.forEach((r,ri)=>setTimeout(()=>{ const st=r.querySelector('.strip'); const idx=SYM.indexOf(TARGET[ri]); const pos=(REP-2)*SYM.length+idx;
+      r.classList.remove('spinning'); st.style.transform='translateY(0)'; void st.offsetHeight; r.classList.add('stopping'); st.style.transform=`translateY(calc(var(--rh,92px) * -${pos}))`;
+      if(ri===reels.length-1) setTimeout(win,950); },900+ri*650));
+  }
+  function win(){ p2.classList.add('win'); setTimeout(()=>{ if(step===2) next(); },1400); }
+  document.getElementById('spin').addEventListener('click',spin);
   let x0=null,dx=0;
   c.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;dx=0;cur().style.transition='none';},{passive:true});
-  c.addEventListener('touchmove',e=>{if(x0===null) return; dx=e.touches[0].clientX-x0; if(dx>0) cur().style.transform=`translateX(${dx}px)`;},{passive:true});
-  c.addEventListener('touchend',()=>{const el=cur(); el.style.transition=''; if(dx>90) next(); else el.style.transform=''; x0=null;});
+  c.addEventListener('touchmove',e=>{if(x0===null||step!==1) return; dx=e.touches[0].clientX-x0; if(dx>0) cur().style.transform=`translateX(${dx}px)`;},{passive:true});
+  c.addEventListener('touchend',()=>{const el=cur(); el.style.transition=''; if(dx>90&&step===1) next(); else el.style.transform=''; x0=null;});
   let mx=null; c.addEventListener('mousedown',e=>{if(e.target.closest('button')) return; mx=e.clientX;cur().style.transition='none';});
-  window.addEventListener('mousemove',e=>{if(mx===null) return; const d=e.clientX-mx; if(d>0) cur().style.transform=`translateX(${d}px)`;});
-  window.addEventListener('mouseup',e=>{if(mx===null) return; const d=e.clientX-mx; mx=null; const el=cur(); el.style.transition=''; if(d>120) next(); else el.style.transform='';});
-  window.addEventListener('keydown',e=>{if(c.classList.contains('hidden')) return; if(e.key==='ArrowRight'||e.key==='Enter'||e.key===' '){e.preventDefault();next();}});
+  window.addEventListener('mousemove',e=>{if(mx===null||step!==1) return; const d=e.clientX-mx; if(d>0) cur().style.transform=`translateX(${d}px)`;});
+  window.addEventListener('mouseup',e=>{if(mx===null) return; const d=e.clientX-mx; mx=null; const el=cur(); el.style.transition=''; if(d>120&&step===1) next(); else el.style.transform='';});
+  window.addEventListener('keydown',e=>{if(c.classList.contains('hidden')) return; if(e.key==='ArrowRight'||e.key==='Enter'||e.key===' '){e.preventDefault(); if(step===2) spin(); else next();}});
 })();
 
 // feuille de remplacement d'un créneau
