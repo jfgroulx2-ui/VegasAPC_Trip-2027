@@ -83,12 +83,13 @@ p{margin:0}
 .machine{position:relative;width:100%;background:linear-gradient(#3a2a5a,#1a1030);border:4px solid #F3B35A;border-radius:18px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.5),inset 0 0 0 2px rgba(0,0,0,.35)}
 .reels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .reel{position:relative;height:var(--rh,92px);overflow:hidden;background:#F4E7CF;border-radius:10px;box-shadow:inset 0 10px 14px rgba(0,0,0,.25),inset 0 -10px 14px rgba(0,0,0,.25)}
-.strip{display:grid;will-change:transform}
+.strip{display:grid;will-change:transform;backface-visibility:hidden}
+.pane{backface-visibility:hidden}
 .strip .sym{height:var(--rh,92px);display:grid;place-items:center;color:#2A2338}
 .strip .sym svg{width:58%;height:58%}
 .sym.golf{color:#2E6B3C}.sym.guitar{color:#8A2E5C}.sym.beer{color:#B8741A}.sym.music{color:#6E4F7A}.sym.sun{color:#E6702E}.sym.dice{color:#2A2338}.sym.pin{color:#3B7A8A}
 .reel.spinning .strip{animation:reelspin .22s linear infinite}
-@keyframes reelspin{from{transform:translateY(0)}to{transform:translateY(calc(var(--rh,92px) * -7))}}
+@keyframes reelspin{from{transform:translateY(calc(var(--rh,92px) * var(--y0,0)))}to{transform:translateY(calc(var(--rh,92px) * (var(--y0,0) - 7)))}}
 .reel.stopping .strip{transition:transform .9s cubic-bezier(.15,.9,.3,1.05)}
 .pane.win .reel{box-shadow:0 0 0 3px #F3B35A,0 0 26px #F3B35A,inset 0 10px 14px rgba(0,0,0,.25),inset 0 -10px 14px rgba(0,0,0,.25);animation:reelglow .35s ease-in-out infinite alternate}
 @keyframes reelglow{to{box-shadow:0 0 0 3px #E3399B,0 0 36px #E3399B,inset 0 10px 14px rgba(0,0,0,.25),inset 0 -10px 14px rgba(0,0,0,.25)}}
@@ -152,6 +153,7 @@ button.slot:focus-visible{outline:3px solid var(--dawn);outline-offset:2px}
 button.slot:hover{border-color:var(--ink)}
 .slot.free .ss{color:var(--dawn)}
 body.sheet-open{overflow:hidden}
+body.cover-open{overflow:hidden;position:fixed;inset:0;width:100%}
 .sheet{position:fixed;inset:0;z-index:60;background:rgba(14,11,31,.55);display:grid;align-items:end}
 .sheet[hidden]{display:none}
 .sheet-box{background:var(--sand);color:var(--ink);border-top:4px solid var(--dawn);max-height:82vh;overflow:auto;padding:12px 16px calc(16px + env(safe-area-inset-bottom,0px));max-width:720px;width:100%;margin:0 auto;border-radius:14px 14px 0 0}
@@ -1100,22 +1102,23 @@ document.getElementById('shuttle').addEventListener('click',e=>{S.shuttle=!S.shu
   const p1=document.getElementById('pane1'), p2=document.getElementById('pane2');
   let step=1, seen=false; try{seen=sessionStorage.getItem('cover-seen')==='1';}catch(e){}
   if(seen){c.classList.add('hidden');return;}
+  document.body.classList.add('cover-open');
   const cur=()=>step===1?p1:p2;
   const next=()=>{ const el=cur(); el.style.transition='';
     requestAnimationFrame(()=>{ el.style.transform='';
     if(step===1){ p2.hidden=false; p2.classList.add('in'); p1.classList.add('out'); step=2; setTimeout(()=>{p1.hidden=true;},500); }
-    else { p2.classList.add('out'); c.classList.add('gone'); try{sessionStorage.setItem('cover-seen','1');}catch(e){} setTimeout(()=>c.classList.add('hidden'),500); showTab('plan'); document.getElementById('plan').focus?.(); } }); };
+    else { p2.classList.add('out'); c.classList.add('gone'); try{sessionStorage.setItem('cover-seen','1');}catch(e){} document.body.classList.remove('cover-open'); window.scrollTo(0,0); setTimeout(()=>c.classList.add('hidden'),500); showTab('plan'); document.getElementById('plan').focus?.(); } }); };
   document.querySelectorAll('.cv-swipe').forEach(b=>b.addEventListener('click',next));
   // machine à sous
   const SYM=['golf','beer','sun','music','guitar','dice','pin']; const TARGET=['golf','golf','golf','guitar']; const REP=6;
   const reels=[...document.querySelectorAll('#reels .reel')];
   reels.forEach((r,ri)=>{const st=r.querySelector('.strip'); let html=''; for(let k=0;k<REP;k++) SYM.forEach(sy=>{html+=`<div class="sym ${sy}">${ico(sy)}</div>`;}); st.innerHTML=html;
-    const start=(ri*2)%SYM.length; st.style.transform=`translateY(calc(var(--rh,92px) * -${start}))`;});
+    const start=(ri*2)%SYM.length; st.style.setProperty('--y0',-start); st.style.transform=`translateY(calc(var(--rh,92px) * -${start}))`;});
   let spun=false;
   function spin(){ if(spun) return; spun=true; const btn=document.getElementById('spin'); btn.disabled=true; btn.classList.add('down'); setTimeout(()=>btn.classList.remove('down'),200);
     reels.forEach(r=>{r.classList.remove('stopping'); r.classList.add('spinning');});
     reels.forEach((r,ri)=>setTimeout(()=>{ const st=r.querySelector('.strip'); const idx=SYM.indexOf(TARGET[ri]); const pos=(REP-2)*SYM.length+idx;
-      r.classList.remove('spinning'); st.style.transform='translateY(0)'; void st.offsetHeight; r.classList.add('stopping'); st.style.transform=`translateY(calc(var(--rh,92px) * -${pos}))`;
+      r.classList.remove('spinning'); st.style.transform=`translateY(calc(var(--rh,92px) * -${pos-SYM.length*2}))`; void st.offsetHeight; r.classList.add('stopping'); st.style.transform=`translateY(calc(var(--rh,92px) * -${pos}))`;
       if(ri===reels.length-1) setTimeout(win,950); },900+ri*650));
   }
   function win(){ p2.classList.add('win'); setTimeout(()=>{ if(step===2) next(); },1400); }
